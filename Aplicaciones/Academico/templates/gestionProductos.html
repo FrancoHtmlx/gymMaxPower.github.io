@@ -1,0 +1,68 @@
+{% extends "./base.html" %}
+
+{% block title %} gestion de productos {% endblock %}
+
+{% block body%}
+<div class="row">
+    <div class="col-sm-12 cold-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }} </strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2> Gestion de productos </h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/productos/registrarProducto/" method="POST">{% csrf_token %} 
+                    <div class="form-group">
+                        <input type="text" id="txtidProducto" name="txtidProducto" class="form-control" placeoholder="idProducto" 
+                        minlength="6" maxlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeoholder="Nombre" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtStock" name="txtStock" class="form-control" placeoholder="Stock" 
+                         maxlength="20" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+             </div>
+        </div>
+    </div>
+    <div class="col-sm-12 cold-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de productos</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-stripped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>idProducto</th>
+                        <th>Nombre</th>
+                        <th>Stock</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in productos %} 
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{c.idProducto}}</td>
+                        <td>{{c.nombre}}</td>
+                        <td>{{c.stock}}</td>
+                        <td><a href="edicionProductos/{{c.idProducto}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminarProducto/{{c.idProducto}}" class="btn btn-danger btnElminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

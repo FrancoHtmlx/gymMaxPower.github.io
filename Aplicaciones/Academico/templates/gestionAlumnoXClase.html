@@ -1,0 +1,73 @@
+{% extends "./base.html" %}
+
+{% block title %} gestion de AlumnoXclase {% endblock %}
+
+{% block body%}
+<div class="row">
+    <div class="col-sm-12 cold-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }} </strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2> Gestion de AlumnoXclase </h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/informeAlumnoxclase/" method="POST">{% csrf_token %} 
+                    <div class="form-group">
+                        <select name="informe" onchange="filtrar()" >
+                            <option value="">seleccione una clase</option>
+                            {% for c in clases%}
+                               <option value="{{c.idClase}}">{{c.nombre}}</option>
+                                
+                            {% endfor %}
+                          </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Buscar</button>
+                    </div>
+                </form>
+             </div>
+        </div>
+    </div>
+    <div class="col-sm-12 cold-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de alumnoXclase</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-stripped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>idCliente</th>
+                        <th>Nombre del cliente</th>
+                        <th>apellido</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in clientes%}
+                        <tr>    
+                            <td>{{forloop.counter}}</td>
+                            <td>{{c.idCliente}}</td>
+                            <td>{{c.nombre}}</td>
+                            <td>{{c.apellido}}</th>
+                            
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+<!--onchange = "console.log('hola')#para agregar al "select" alado.
+
+
+ <!-- esto va en informeClase view
+    lista = ClientexClase = clientesXclases.objects.filter(estado = 'activo',idClase="optionSelect.text").values_list("idCliente")
+    clientes = Cliente.objects.filter(idCliente__in=lista)
