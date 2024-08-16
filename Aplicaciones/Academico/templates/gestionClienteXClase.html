@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "./base.html" %}
 
 {% block title %} gestion de clienteXclase {% endblock %}
@@ -85,4 +86,93 @@
         </div>
     </div>
 </div>
+=======
+{% extends "./base.html" %}
+
+{% block title %} gestion de clienteXclase {% endblock %}
+
+{% block body%}
+<div class="row">
+    <div class="col-sm-12 cold-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }} </strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2> Gestion de clienteXclase </h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/clienteXclase/registrarClienteXClase/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtidCxC" name="txtidCxC" class="form-control" placeoholder="idCxC" 
+                        minlength="6" maxlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeoholder="Fecha" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtEstado" name="txtEstado" class="form-control" placeoholder="Estado" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <select name="txtidCliente">
+                            <option value="">seleccione un cliente</option>
+                            {% for c in cliente%}
+                            <option value={{c.idCliente}}>{{c.apellido}}, {{c.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="txtidClase">
+                            <option value="">seleccione una clase</option>
+                            {% for c in clases%}
+                            <option value={{c.idClase}}>{{c.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+             </div>
+        </div>
+    </div>
+    <div class="col-sm-12 cold-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de clienteXclase</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-stripped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>idClienteXClase</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>idCliente</th>
+                        <th>idClase</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in clienteXclase%}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{c.idCxC}}</td>
+                        <td>{{c.fecha}}</td>
+                        <td>{{c.estado}}</td>
+                        <td>{{c.idCliente_id}}</td>
+                        <td>{{c.idClase_id}}</td>
+                        <td><a href="edicionClienteXClase/{{c.idCxC}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminarClienteXClase/{{c.idCxC}}" class="btn btn-danger btnElminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+>>>>>>> 41072145d85b204857c4a4dbb8fdcbfd72693524
 {% endblock %}

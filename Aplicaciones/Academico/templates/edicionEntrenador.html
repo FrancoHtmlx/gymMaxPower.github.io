@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "./base.html" %}
 
 {% block title %} gestion de entrenador {% endblock %}
@@ -36,4 +37,44 @@
              </div>
         </div>
 </div>
+=======
+{% extends "./base.html" %}
+
+{% block title %} gestion de entrenador {% endblock %}
+
+{% block body%}
+<div class="row"> 
+    <div class="col-md-4 offset-md-4">
+        <h2> Edicion de entrenadores </h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/entrenadores/editarEntrenador/" method="POST">{% csrf_token %} 
+                    <div class="form-group">
+                        <input type="text" id="txtidEntrenador" name="txtidEntrenador" value="{{entrenadores.idEntrenador}}" class="form-control" placeoholder="idEntrenador" 
+                        minlength="6" maxlength="6" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{entrenadores.nombre}}" class="form-control" placeoholder="Nombre" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtApellido" name="txtApellido" value="{{entrenadores.apellido}}" class="form-control" placeoholder="Apellido" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtTelefono" name="txtTelefono" value="{{entrenadores.telefono}}" class="form-control" placeoholder="Telefono" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtDireccion" name="txtDireccion" value="{{entrenadores.direccion}}" class="form-control" placeoholder="Direccion" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+             </div>
+        </div>
+</div>
+>>>>>>> 41072145d85b204857c4a4dbb8fdcbfd72693524
 {% endblock %}
