@@ -1,0 +1,27 @@
+{% extends "./base.html" %}
+
+{% block title %} Signin {% endblock %}
+
+{% block body%}
+
+<h2> Iniciar Sesión </h2>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<p>Ingrese su usuario y contraseña</p>
+
+<form action="{% url 'signin' %}" method="POST"> 
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button>
+        Signin
+    </button>
+
+</form>
+
+<p>¿No tienes una cuenta? <a href="{% url 'signup' %}">Regístrate aquí</a></p>
+
+{% endblock %}

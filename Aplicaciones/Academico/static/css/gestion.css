@@ -1,0 +1,12 @@
+th, td{
+    text-align: center;
+    vertical-align: middle;
+}
+
+body {
+    background-image: url("/static/img/gymMaxPower.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+

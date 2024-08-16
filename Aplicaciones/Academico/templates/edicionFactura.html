@@ -1,0 +1,43 @@
+{% extends "./base.html" %}
+
+{% block title %} gestion de facturas {% endblock %}
+
+{% block body%}
+<div class="row"> 
+    <div class="col-md-4 offset-md-4">
+        <h2> Edicion de facturas </h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/facturas/editarFactura/" method="POST">{% csrf_token %} 
+                    <div class="form-group">
+                        <input type="text" id="txtnumFac" name="txtnumFac" value="{{facturas.numFac}}" class="form-control" placeoholder="numFac" 
+                        minlength="6" maxlength="6" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtnombreFac" name="txtnombreFac" value="{{facturas.nombreFac}}" class="form-control" placeoholder="nombreFac" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="dateFecha" name="dateFecha" value="{{facturas.fecha}}" class="form-control" placeoholder="Fecha" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="float" id="floatImporte" name="floatImporte" value="{{facturas.importe}}" class="form-control" placeoholder="Importe" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <select name="txtidCaja"> 
+                            <option value="">seleccione una caja</option>
+                            {% for c in cajas %} 
+                            <option value={{c.idCaja}}> {{c.tipo}}</option>   
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+             </div>
+        </div>
+</div>
+{% endblock %}

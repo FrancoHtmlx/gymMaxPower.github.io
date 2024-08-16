@@ -1,0 +1,61 @@
+{% extends "./base.html" %}
+
+{% block title %} Informe Cobro {% endblock %}
+
+{% block body%}
+<div class="row">
+    <div class="col-sm-12 cold-md-6 col-lg-12 col-xl-4">
+       
+        <h4> Informe Cobro </h4>
+        
+                <form action="/informeCobro/" method="POST">{% csrf_token %}
+                       
+                        <div class="form-group">
+                            <label for="desde">Desde:</label>
+                            <input type="date" id="desde" name="desde" class="form-control" placeholder="Fecha" maxlength="50" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="hasta">Hasta:</label>
+                            <input type="date" id="hasta" name="hasta" class="form-control" placeholder="Fecha" maxlength="50" required>
+                        </div> 
+
+                         <button type="submit" class="btn btn-success btn-block text-white">Buscar</button>
+                   
+                </form>
+        
+    </div>
+</div>
+<div class="row">  
+    <div class="col-sm-12 cold-md-6 col-lg-12 col-xl-8">
+        <h4>Informe Cobro entre las fechas seleccionadas</h4>
+        <div class="table-responsive py-2">
+            <table class="table table-stripped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>id Cobro</th>
+                        <th>Cliente</th>
+                        <th>Clase</th>
+                        <th>costo Cuota</th>
+                        <th>fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for c in cobros%}
+                        <tr>
+                        <td>{{forloop.counter}}</td>
+                            <td>{{c.idCobro}}</td>
+                            <td>{{c.idCliente}}</td>
+                            <td>{{c.idClase.nombre}}</td>
+                            <td>{{c.CostoCuota}}</td>
+                            <td>{{c.fecha}}</td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
