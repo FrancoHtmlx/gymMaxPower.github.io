@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {% extends "./base.html" %}
 
 {% block title %} gestion de clientesXclases {% endblock %}
@@ -46,53 +46,5 @@
              </div>
         </div>
 </div>
-=======
-{% extends "./base.html" %}
 
-{% block title %} gestion de clientesXclases {% endblock %}
-
-{% block body%}
-<div class="row"> 
-    <div class="col-md-4 offset-md-4">
-        <h2> Edicion de clientesXclases </h2>
-        <div class="card">
-            <div class="card-body">
-                <form action="/clienteXclase/editarClienteXClase/" method="POST">{% csrf_token %} 
-                    <div class="form-group">
-                        <input type="text" id="txtidCxC" name="txtidCxC" value="{{clienteXclase.idCxC}}" class="form-control" placeoholder="idCxC" 
-                        minlength="6" maxlength="6" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" value="{{clienteXclase.fecha}}" class="form-control" placeoholder="Fecha" 
-                         maxlength="50"  required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtEstado" name="txtEstado" value="{{clienteXclase.estado}}" class="form-control" placeoholder="Estado" 
-                         maxlength="50"  required>
-                    </div>
-                    <div class="form-group">
-                        <select name="txtidCliente">
-                            <option value="">seleccione un cliente</option>
-                            {% for c in cliente%}
-                            <option value={{c.idCliente}}>{{c.apellido}}, {{c.nombre}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select name="txtidClase">
-                            <option value="">seleccione una clase</option>
-                            {% for c in clases%}
-                            <option value={{c.idClase}}>{{c.nombre}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
-                    </div>
-                </form>
-             </div>
-        </div>
-</div>
->>>>>>> 41072145d85b204857c4a4dbb8fdcbfd72693524
 {% endblock %}

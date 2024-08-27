@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {% extends "./base.html" %}
 
 {% block title %} gestion de caja {% endblock %}
@@ -33,40 +33,5 @@
              </div>
         </div>
 </div>
-=======
-{% extends "./base.html" %}
 
-{% block title %} gestion de caja {% endblock %}
-
-{% block body%}
-<div class="row"> 
-    <div class="col-md-4 offset-md-4">
-        <h2> Edicion de cajas </h2>
-        <div class="card">
-            <div class="card-body">
-                <form action="/cajas/editarCaja/" method="POST">{% csrf_token %} 
-                    <div class="form-group">
-                        <input type="text" id="txtidCaja" name="txtidCaja" value="{{cajas.idCaja}}" class="form-control" placeoholder="idCaja" 
-                        minlength="6" maxlength="6" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtTipo" name="txtTipo" value="{{cajas.tipo}}" class="form-control" placeoholder="Tipo" 
-                         maxlength="50" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="float" id="floatMonto" name="floatMonto" value="{{cajas.monto}}" class="form-control" placeoholder="Monto" 
-                         maxlength="50" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeoholder="Fecha" 
-                         maxlength="50" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
-                    </div>
-                </form>
-             </div>
-        </div>
-</div>
->>>>>>> 41072145d85b204857c4a4dbb8fdcbfd72693524
 {% endblock %}
