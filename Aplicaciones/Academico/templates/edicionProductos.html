@@ -11,15 +11,15 @@
             <div class="card-body">
                 <form action="/productos/editarProducto/" method="POST">{% csrf_token %} 
                     <div class="form-group">
-                        <input type="text" id="txtidProducto" name="txtidProducto" value="{{productos.idProducto}}" class="form-control" placeoholder="idProducto" 
+                        <input type="text" id="txtidProducto" name="txtidProducto" value="{{productos.idProducto}}" class="form-control" placeholder="Ingrese idProducto" 
                         minlength="6" maxlength="6" readonly required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" value="{{productos.nombre}}" class="form-control" placeoholder="Nombre" 
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{productos.nombre}}" class="form-control" placeholder="Ingrese Nombre" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtStock" name="txtStock" value="{{productos.stock}}" class="form-control" placeoholder="Stock" 
+                        <input type="text" id="txtStock" name="txtStock" value="{{productos.stock}}" class="form-control" placeholder="Ingrese Stock" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">

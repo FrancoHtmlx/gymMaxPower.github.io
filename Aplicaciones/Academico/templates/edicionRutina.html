@@ -11,19 +11,19 @@
             <div class="card-body">
                 <form action="/rutinas/editarRutina/" method="POST">{% csrf_token %} 
                     <div class="form-group">
-                        <input type="text" id="txtidRutina" name="txtidRutina" value="{{rutinas.idRutina}}" class="form-control" placeoholder="idRutina" 
+                        <input type="text" id="txtidRutina" name="txtidRutina" value="{{rutinas.idRutina}}" class="form-control" placeholder="Ingrese idRutina" 
                         minlength="6" maxlength="6" readonly required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtEjercicio" name="txtEjercicio" value="{{rutinas.ejercicio}}" class="form-control" placeoholder="Ejercicio" 
+                        <input type="text" id="txtEjercicio" name="txtEjercicio" value="{{rutinas.ejercicio}}" class="form-control" placeholder="Ingrese Ejercicio" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="integer" id="integerCantidad" name="integerCantidad" value="{{rutinas.cantidad}}" class="form-control" placeoholder="Cantidad" 
+                        <input type="integer" id="integerCantidad" name="integerCantidad" value="{{rutinas.cantidad}}" class="form-control" placeholder="Ingrese Cantidad" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" value="{{rutinas.fecha}}" class="form-control" placeoholder="Fecha" 
+                        <input type="date" id="dateFecha" name="dateFecha" value="{{rutinas.fecha}}" class="form-control" placeholder="Ingrese Fecha" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">

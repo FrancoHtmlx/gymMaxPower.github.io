@@ -11,19 +11,19 @@
             <div class="card-body">
                 <form action="/cajas/editarCaja/" method="POST">{% csrf_token %} 
                     <div class="form-group">
-                        <input type="text" id="txtidCaja" name="txtidCaja" value="{{cajas.idCaja}}" class="form-control" placeoholder="idCaja" 
+                        <input type="text" id="txtidCaja" name="txtidCaja" value="{{cajas.idCaja}}" class="form-control" placeholder="Ingrese idCaja" 
                         minlength="6" maxlength="6" readonly required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtTipo" name="txtTipo" value="{{cajas.tipo}}" class="form-control" placeoholder="Tipo" 
+                        <input type="text" id="txtTipo" name="txtTipo" value="{{cajas.tipo}}" class="form-control" placeholder="Ingrese Tipo" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="float" id="floatMonto" name="floatMonto" value="{{cajas.monto}}" class="form-control" placeoholder="Monto" 
+                        <input type="float" id="floatMonto" name="floatMonto" value="{{cajas.monto}}" class="form-control" placeholder="Ingrese Monto" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeoholder="Fecha" 
+                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">

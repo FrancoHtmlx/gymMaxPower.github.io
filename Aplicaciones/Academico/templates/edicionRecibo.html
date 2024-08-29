@@ -11,15 +11,15 @@
             <div class="card-body">
                 <form action="/recibos/editarRecibo/" method="POST">{% csrf_token %} 
                     <div class="form-group">
-                        <input type="text" id="txtnumRecibo" name="txtnumRecibo" value="{{recibos.numRecibo}}" class="form-control" placeoholder="Recibo" 
+                        <input type="text" id="txtnumRecibo" name="txtnumRecibo" value="{{recibos.numRecibo}}" class="form-control" placeholder="Ingrese Recibo" 
                         minlength="6" maxlength="6" readonly required>
                     </div>
                     <div class="form-group">
-                        <input type="float" id="floatSueldo" name="floatSueldo" value="{{recibos.sueldo}}" class="form-control" placeoholder="Sueldo" 
+                        <input type="float" id="floatSueldo" name="floatSueldo" value="{{recibos.sueldo}}" class="form-control" placeholder="Ingrese Sueldo" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" value="{{recibos.fecha}}" class="form-control" placeoholder="Fecha" 
+                        <input type="date" id="dateFecha" name="dateFecha" value="{{recibos.fecha}}" class="form-control" placeholder="Ingrese Fecha" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">

@@ -19,15 +19,15 @@
             <div class="card-body">
                 <form action="/recibos/registrarRecibo/" method="POST">{% csrf_token %} 
                     <div class="form-group">
-                        <input type="text" id="txtnumRecibo" name="txtnumRecibo" class="form-control" placeoholder="NumRecibo" 
+                        <input type="text" id="txtnumRecibo" name="txtnumRecibo" class="form-control" placeholder="Ingrese NumRecibo" 
                         minlength="6" maxlength="6" required>
                     </div>
                     <div class="form-group">
-                        <input type="float" id="floatSueldo" name="floatSueldo" class="form-control" placeoholder="Sueldo" 
+                        <input type="float" id="floatSueldo" name="floatSueldo" class="form-control" placeholder="Ingrese Sueldo" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeoholder="Fecha" 
+                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">

@@ -11,23 +11,23 @@
             <div class="card-body">
                 <form action="/entrenadores/editarEntrenador/" method="POST">{% csrf_token %} 
                     <div class="form-group">
-                        <input type="text" id="txtidEntrenador" name="txtidEntrenador" value="{{entrenadores.idEntrenador}}" class="form-control" placeoholder="idEntrenador" 
+                        <input type="text" id="txtidEntrenador" name="txtidEntrenador" value="{{entrenadores.idEntrenador}}" class="form-control" placeholder="Ingrese idEntrenador" 
                         minlength="6" maxlength="6" readonly required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" value="{{entrenadores.nombre}}" class="form-control" placeoholder="Nombre" 
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{entrenadores.nombre}}" class="form-control" placeholder="Ingrese Nombre" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtApellido" name="txtApellido" value="{{entrenadores.apellido}}" class="form-control" placeoholder="Apellido" 
+                        <input type="text" id="txtApellido" name="txtApellido" value="{{entrenadores.apellido}}" class="form-control" placeholder="Ingrese Apellido" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtTelefono" name="txtTelefono" value="{{entrenadores.telefono}}" class="form-control" placeoholder="Telefono" 
+                        <input type="text" id="txtTelefono" name="txtTelefono" value="{{entrenadores.telefono}}" class="form-control" placeholder="Ingrese Telefono" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtDireccion" name="txtDireccion" value="{{entrenadores.direccion}}" class="form-control" placeoholder="Direccion" 
+                        <input type="text" id="txtDireccion" name="txtDireccion" value="{{entrenadores.direccion}}" class="form-control" placeholder="Ingrese Direccion" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
