@@ -19,15 +19,15 @@
             <div class="card-body">
                 <form action="/productos/registrarProducto/" method="POST">{% csrf_token %} 
                     <div class="form-group">
-                        <input type="text" id="txtidProducto" name="txtidProducto" class="form-control" placeoholder="Ingrese idProducto" 
+                        <input type="text" id="txtidProducto" name="txtidProducto" class="form-control" placeholder="Ingrese idProducto" 
                         minlength="6" maxlength="6" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeoholder="Ingrese Nombre" 
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Ingrese Nombre" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtStock" name="txtStock" class="form-control" placeoholder=" IngreseStock" 
+                        <input type="text" id="txtStock" name="txtStock" class="form-control" placeholder=" IngreseStock" 
                          maxlength="20" required>
                     </div>
                     <div class="form-group">

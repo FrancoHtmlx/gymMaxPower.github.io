@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 function filtrar(){
     var v = document.getElementById("select_id").value;
     console.log(v)
@@ -10,7 +10,7 @@ function filtrar(){
 
 }; 
 
-=======
+
 (function filtrar(){
     const informe = document.querySelector('#informe');
     console.log(informe)
@@ -30,4 +30,4 @@ function filtrar(){
         
 
 })();
->>>>>>> 41072145d85b204857c4a4dbb8fdcbfd72693524
+
