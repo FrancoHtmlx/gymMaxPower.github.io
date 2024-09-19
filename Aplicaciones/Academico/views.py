@@ -575,28 +575,54 @@ def cobro(request):
     messages.success(request, '¡Cobros listados!')
     return render(request, "gestionCobro.html", {"cobros": cobros,"clases": clases, "cliente": clientes})
 
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+from .models import Cliente, Clase, Cobro, clientesXclases
+
 @login_required
 def registrarCobro(request):
     if request.method == 'POST':
-        IdCli = request.POST.get('idOculto', None)
-        cliente = get_object_or_404(Cliente, idCliente=IdCli)
+        try:
+            IdCli = request.POST.get('idOculto')
+            if not IdCli:
+                raise ValueError("El ID del cliente es necesario.")
+            
+            cliente = get_object_or_404(Cliente, idCliente=IdCli)
+            
+            Fecha = request.POST.get('dateFecha')
+            if not Fecha:
+                raise ValueError("La fecha es necesaria.")
+            
+            idC = clientesXclases.objects.filter(estado='activo', idCliente=IdCli).values_list("idClase", flat=True).first()
+            if not idC:
+                raise ValueError("No se encontró una clase activa para el cliente.")
+            
+            clase = get_object_or_404(Clase, idClase=idC)
+            costoCuota = clase.costoCuotas
+            
+            nuevo_cobro = Cobro.objects.create(
+                idCliente=cliente,
+                idClase=clase,
+                fecha=Fecha,
+                CostoCuota=costoCuota
+            )
+            
+            messages.success(request, 'Cobro registrado exitosamente!')
+            return redirect('/cobro')
         
-        Fecha = request.POST.get('dateFecha', None)
-        
-        idC = clientesXclases.objects.filter(estado='activo', idCliente=IdCli).values_list("idClase", flat=True).first()
-        clase = get_object_or_404(Clase, idClase=idC)
-
-        costoCuota = Clase.objects.filter(idClase=idC).values_list("costoCuotas", flat=True).first()
-
-        nuevo_cobro = Cobro.objects.create(
-            idCliente=cliente,
-            idClase=clase,
-            fecha=Fecha,
-            CostoCuota=costoCuota
-        )
-
-        messages.success(request, 'Cobro registrado exitosamente!')
+        except ValueError as e:
+            messages.error(request, str(e))
+            return redirect('/cobro')
+        except ObjectDoesNotExist:
+            messages.error(request, 'Datos no encontrados.')
+            return redirect('/cobro')
+        except Exception as e:
+            messages.error(request, 'Error al registrar el cobro.')
+            return redirect('/cobro')
+    else:
         return redirect('/cobro')
+
 
 
 @login_required
