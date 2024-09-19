@@ -415,13 +415,12 @@ def recibos(request):
 @login_required
 def registrarRecibo(request):
     if request.method == 'POST':
-        num_recibo = request.POST['txtnumRecibo']
         sueldo = request.POST['floatSueldo']
         fecha = request.POST['dateFecha']
         id_entrenador = request.POST['txtidEntrenador']
         entrenador = get_object_or_404(Entrenador, pk=id_entrenador)
 
-        recibo = Recibos.objects.create(numRecibo=num_recibo, sueldo=sueldo, fecha=fecha, idEntrenador=entrenador)
+        recibo = Recibos.objects.create(sueldo=sueldo, fecha=fecha, idEntrenador=entrenador)
         messages.success(request, 'Recibo Registrado!')
         return redirect('/recibos')
     else:
@@ -436,7 +435,7 @@ def edicionRecibo(request, numRecibo):
 @login_required
 def editarRecibo(request):
     if request.method == 'POST':
-        num_recibo = request.POST['txtnumRecibo']
+        num_recibo = request.POST['txtnumRecibo']  # Este campo debe manejarse si se incluye en el HTML
         sueldo = request.POST['floatSueldo']
         fecha = request.POST['dateFecha']
         id_entrenador = request.POST['txtidEntrenador']
