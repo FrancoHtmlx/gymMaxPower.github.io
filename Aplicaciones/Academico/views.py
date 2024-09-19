@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cliente,Entrenador,Clase,Caja,Productos,Facturas,Rutinas,Recibos,clientesXclases,Cobro,alumnoXclase
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
@@ -74,49 +74,55 @@ def entrenadores(request):
 
 @login_required
 def registrarEntrenador(request):
-    idEntrenador=request.POST['txtidEntrenador']
-    Nombre=request.POST['txtNombre']
-    Apellido=request.POST['txtApellido']
-    Telefono=request.POST['txtTelefono']
-    Direccion=request.POST['txtDireccion']
+    if request.method == 'POST':
+        Nombre = request.POST['txtNombre']
+        Apellido = request.POST['txtApellido']
+        Telefono = request.POST['txtTelefono']
+        Direccion = request.POST['txtDireccion']
 
-    entrenador = Entrenador.objects.create(idEntrenador=idEntrenador, nombre=Nombre, apellido=Apellido,
-    telefono=Telefono,direccion=Direccion)
-    messages.success(request, 'Entrenador Registrado!')
+        # Crear nuevo entrenador, el campo id es auto-generado
+        entrenador = Entrenador(nombre=Nombre, apellido=Apellido,
+                                telefono=Telefono, direccion=Direccion)
+        entrenador.save()
+        messages.success(request, 'Entrenador Registrado!')
+        return redirect('/entrenadores')
+
+    # Si no es POST, se redirige o se maneja de otra forma
     return redirect('/entrenadores')
 
 @login_required
-def edicionEntrenador(request, idEntrenador):
-    entrenadores = Entrenador.objects.get(idEntrenador=idEntrenador)
-    return render(request, "edicionEntrenador.html", {"entrenadores": entrenadores})
+def edicionEntrenador(request, id):
+    entrenador = get_object_or_404(Entrenador, pk=id)
+    return render(request, "edicionEntrenador.html", {"entrenador": entrenador})
 
 @login_required
 def editarEntrenador(request):
-    idEntrenador=request.POST['txtidEntrenador']
-    Nombre=request.POST['txtNombre']
-    Apellido=request.POST['txtApellido']
-    Telefono=request.POST['txtTelefono']
-    Direccion=request.POST['txtDireccion']
+    if request.method == 'POST':
+        id = request.POST['txtId']
+        Nombre = request.POST['txtNombre']
+        Apellido = request.POST['txtApellido']
+        Telefono = request.POST['txtTelefono']
+        Direccion = request.POST['txtDireccion']
 
-    entrenadores = Entrenador.objects.get(idEntrenador=idEntrenador)
-    entrenadores.idEntrenador = idEntrenador
-    entrenadores.nombre = Nombre
-    entrenadores.apellido = Apellido
-    entrenadores.telefono = Telefono
-    entrenadores.direccion = Direccion
-    entrenadores.save()
+        entrenador = get_object_or_404(Entrenador, pk=id)
+        entrenador.nombre = Nombre
+        entrenador.apellido = Apellido
+        entrenador.telefono = Telefono
+        entrenador.direccion = Direccion
+        entrenador.save()
 
-    messages.success(request, 'Entrenador Actualizado!')
+        messages.success(request, 'Entrenador Actualizado!')
+        return redirect('/entrenadores')
 
+    # Si no es POST, se redirige o se maneja de otra forma
     return redirect('/entrenadores')
 
 @login_required
-def eliminarEntrenador(request, idEntrenador):
-    entrenadores = Entrenador.objects.get(idEntrenador=idEntrenador)
-    entrenadores.delete()
+def eliminarEntrenador(request, id):
+    entrenador = get_object_or_404(Entrenador, pk=id)
+    entrenador.delete()
 
     messages.success(request, 'Entrenador Eliminado!')
-
     return redirect('/entrenadores')
 
 #clases = Clase.objects.filter(estado='activo')
@@ -129,102 +135,105 @@ def clases(request):
 
 @login_required
 def registrarClase(request):
-    idClase=request.POST['txtidClase']
-    Nombre=request.POST['txtNombre']
-    Dia=request.POST['txtDia']
-    Horario=request.POST['txtHorario']
-    Fecha=request.POST['dateFecha']
-    CostoCuotas=request.POST['floatCostoCuotas']
+    if request.method == 'POST':
+        Nombre = request.POST['txtNombre']
+        Dia = request.POST['txtDia']
+        Horario = request.POST['txtHorario']
+        Fecha = request.POST['dateFecha']
+        CostoCuotas = request.POST['floatCostoCuotas']
 
-    clase = Clase.objects.create(idClase=idClase, nombre=Nombre, dia=Dia,
-    horario=Horario,fecha=Fecha,costoCuotas=CostoCuotas)
-    messages.success(request, 'Clase Registrada!')
-    return redirect('/clases')
+        clase = Clase.objects.create(nombre=Nombre, dia=Dia,
+        horario=Horario, fecha=Fecha, costoCuotas=CostoCuotas)
+        messages.success(request, 'Clase Registrada!')
+        return redirect('/clases')
+
+    return render(request, "registrarClase.html")
 
 @login_required
-def edicionClase(request, idClase):
-    clases = Clase.objects.get(idClase=idClase)
-    return render(request, "edicionClase.html", {"clases": clases})
+def edicionClase(request, id):
+    clase = get_object_or_404(Clase, pk=id)
+    return render(request, "edicionClase.html", {"clase": clase})
 
 @login_required
 def editarClase(request):
-    idClase=request.POST['txtidClase']
-    Nombre=request.POST['txtNombre']
-    Dia=request.POST['txtDia']
-    Horario=request.POST['txtHorario']
-    Fecha=request.POST['dateFecha']
-    CostoCuotas=request.POST['floatCostoCuotas']
+    if request.method == 'POST':
+        id = request.POST['txtId']
+        Nombre = request.POST['txtNombre']
+        Dia = request.POST['txtDia']
+        Horario = request.POST['txtHorario']
+        Fecha = request.POST['dateFecha']
+        CostoCuotas = request.POST['floatCostoCuotas']
 
-    clases = Clase.objects.get(idClase=idClase)
-    clases.idClase = idClase
-    clases.nombre = Nombre
-    clases.dia = Dia
-    clases.horario = Horario
-    clases.fecha = Fecha
-    clases.save()
+        clase = get_object_or_404(Clase, pk=id)
+        clase.nombre = Nombre
+        clase.dia = Dia
+        clase.horario = Horario
+        clase.fecha = Fecha
+        clase.costoCuotas = CostoCuotas
+        clase.save()
 
-    messages.success(request, 'Clase Actualizada!')
+        messages.success(request, 'Clase Actualizada!')
+        return redirect('/clases')
 
-    return redirect('/clases')
+    return render(request, "editarClase.html")
 
 @login_required
-def eliminarClase(request, idClase):
-    clases = Clase.objects.get(idClase=idClase)
-    clases.delete()
+def eliminarClase(request, id):
+    clase = get_object_or_404(Clase, pk=id)
+    clase.delete()
 
     messages.success(request, 'Clase Eliminada!')
-
     return redirect('/clases')
 
 @login_required
 def cajas(request):
     cajas = Caja.objects.all()
-    messages.success(request, '¡Caja Listadas!')
+    messages.success(request, '¡Cajas Listadas!')
     return render(request, "gestionCaja.html", {"cajas": cajas})
 
 @login_required
 def registrarCaja(request):
-    idCaja=request.POST['txtidCaja']
-    Tipo=request.POST['txtTipo']
-    Monto=request.POST['floatMonto']
-    Fecha=request.POST['dateFecha']
+    if request.method == 'POST':
+        Tipo = request.POST['txtTipo']
+        Monto = request.POST['floatMonto']
+        Fecha = request.POST['dateFecha']
 
-    caja = Caja.objects.create(idCaja=idCaja, tipo=Tipo, monto=Monto,
-    fecha=Fecha)
-    messages.success(request, 'Caja Registrada!')
-    return redirect('/cajas')
+        caja = Caja.objects.create(tipo=Tipo, monto=Monto, fecha=Fecha)
+        messages.success(request, 'Caja Registrada!')
+        return redirect('/cajas')
+    return render(request, "registrarCaja.html")
 
 @login_required
 def edicionCaja(request, idCaja):
-    cajas = Caja.objects.get(idCaja=idCaja)
-    return render(request, "edicionCaja.html", {"cajas": cajas})
+    caja = get_object_or_404(Caja, pk=idCaja)
+    return render(request, "edicionCaja.html", {"caja": caja})
 
 @login_required
 def editarCaja(request):
-    idCaja=request.POST['txtidCaja']
-    Tipo=request.POST['txtTipo']
-    Monto=request.POST['floatMonto']
-    Fecha=request.POST['dateFecha']
+    if request.method == 'POST':
+        idCaja = request.POST['txtidCaja']
+        Tipo = request.POST['txtTipo']
+        Monto = request.POST['floatMonto']
+        Fecha = request.POST['dateFecha']
 
-    cajas = Caja.objects.get(idCaja=idCaja)
-    cajas.idCaja = idCaja
-    cajas.tipo = Tipo
-    cajas.monto = Monto
-    cajas.fecha = Fecha
-    cajas.save()
+        caja = get_object_or_404(Caja, pk=idCaja)
+        caja.tipo = Tipo
+        caja.monto = Monto
+        caja.fecha = Fecha
+        caja.save()
 
-    messages.success(request, 'Caja Actualizada!')
-
-    return redirect('/cajas')
+        messages.success(request, 'Caja Actualizada!')
+        return redirect('/cajas')
+    return render(request, "editarCaja.html")
 
 @login_required
 def eliminarCaja(request, idCaja):
-    cajas = Caja.objects.get(idCaja=idCaja)
-    cajas.delete()
+    caja = get_object_or_404(Caja, pk=idCaja)
+    caja.delete()
 
     messages.success(request, 'Caja Eliminada!')
-
     return redirect('/cajas')
+
 
 @login_required
 def productos(request):
@@ -234,162 +243,166 @@ def productos(request):
 
 @login_required
 def registrarProducto(request):
-    idProducto=request.POST['txtidProducto']
-    Nombre=request.POST['txtNombre']
-    Stock=request.POST['txtStock']
-
-    productos = Productos.objects.create(idProducto=idProducto, nombre=Nombre, stock=Stock)
-    messages.success(request, 'Producto Registrado!')
-    return redirect('/productos')
+    if request.method == 'POST':
+        nombre = request.POST['txtNombre']
+        stock = request.POST['txtStock']
+        
+        productos = Productos.objects.create(nombre=nombre, stock=stock)
+        messages.success(request, 'Producto Registrado!')
+        return redirect('/productos')
+    else:
+        return render(request, "registrarProducto.html")  # Suponiendo que tienes una plantilla para el formulario
 
 @login_required
-def edicionProducto(request, idProducto):
-    productos = Productos.objects.get(idProducto=idProducto)
-    return render(request, "edicionProductos.html", {"productos": productos})
+def edicionProducto(request, id):
+    producto = get_object_or_404(Productos, pk=id)
+    return render(request, "edicionProductos.html", {"producto": producto})
 
 @login_required
 def editarProducto(request):
-    idProducto=request.POST['txtidProducto']
-    Nombre=request.POST['txtNombre']
-    Stock=request.POST['txtStock']
+    if request.method == 'POST':
+        id_producto = request.POST['txtidProducto']
+        nombre = request.POST['txtNombre']
+        stock = request.POST['txtStock']
+        
+        producto = get_object_or_404(Productos, pk=id_producto)
+        producto.nombre = nombre
+        producto.stock = stock
+        producto.save()
 
-    productos = Productos.objects.get(idProducto=idProducto)
-    productos.idProducto = idProducto
-    productos.nombre = Nombre
-    productos.stock = Stock
-    productos.save()
-
-    messages.success(request, 'Producto Actualizado!')
-
-    return redirect('/productos')
+        messages.success(request, 'Producto Actualizado!')
+        return redirect('/productos')
+    else:
+        return redirect('/productos')  # Redirige si no es un POST
 
 @login_required
-def eliminarProducto(request, idProducto):
-    productos = Productos.objects.get(idProducto=idProducto)
-    productos.delete()
-
+def eliminarProducto(request, id):
+    producto = get_object_or_404(Productos, pk=id)
+    producto.delete()
     messages.success(request, 'Producto Eliminado!')
-
     return redirect('/productos')
 
 @login_required
 def facturas(request):
     facturas = Facturas.objects.all()
-    #print(str(facturas))
     cajas = Caja.objects.all()
     messages.success(request, 'Facturas Listadas!')
-    return render(request, "gestionFacturas.html", {"facturas": facturas,"cajas": cajas})
+    return render(request, "gestionFacturas.html", {"facturas": facturas, "cajas": cajas})
 
 @login_required
 def registrarFactura(request):
-    NumFac=request.POST['txtnumFac']
-    NombreFac=request.POST['txtnombreFac']
-    Fecha=request.POST['dateFecha']
-    Importe=request.POST['floatImporte']
-    IdCaja=request.POST['txtidCaja']
-    caja = Caja.objects.get(idCaja = IdCaja)
+    if request.method == 'POST':
+        num_fac = request.POST['txtnumFac']
+        nombre_fac = request.POST['txtnombreFac']
+        fecha = request.POST['dateFecha']
+        importe = request.POST['floatImporte']
+        id_caja = request.POST['txtidCaja']
+        caja = get_object_or_404(Caja, pk=id_caja)
 
-    facturas = Facturas.objects.create(numFac=NumFac, nombreFac=NombreFac, fecha=Fecha,importe=Importe,idCaja=caja)
-    messages.success(request, 'Factura Registrada!')
-    return redirect('/facturas')
+        facturas = Facturas.objects.create(numFac=num_fac, nombreFac=nombre_fac, fecha=fecha, importe=importe, idCaja=caja)
+        messages.success(request, 'Factura Registrada!')
+        return redirect('/facturas')
+    else:
+        return redirect('/facturas')  # Redirige si no es un POST
 
 @login_required
 def edicionFactura(request, numFac):
-    facturas = Facturas.objects.get(numFac=numFac)
+    factura = get_object_or_404(Facturas, numFac=numFac)
     cajas = Caja.objects.all()
-    return render(request, "edicionFactura.html", {"facturas": facturas, "cajas": cajas})
+    return render(request, "edicionFactura.html", {"factura": factura, "cajas": cajas})
 
 @login_required
 def editarFactura(request):
-    NumFac=request.POST['txtnumFac']
-    NombreFac=request.POST['txtnombreFac']
-    Fecha=request.POST['dateFecha']
-    Importe=request.POST['floatImporte']
-    IdCaja=request.POST['txtidCaja']
-    caja = Caja.objects.get(idCaja = IdCaja)
+    if request.method == 'POST':
+        num_fac = request.POST['txtnumFac']
+        nombre_fac = request.POST['txtnombreFac']
+        fecha = request.POST['dateFecha']
+        importe = request.POST['floatImporte']
+        id_caja = request.POST['txtidCaja']
+        caja = get_object_or_404(Caja, pk=id_caja)
 
-    facturas = Facturas.objects.get(numFac=NumFac)
-    facturas.numFac = NumFac
-    facturas.nombreFac = NombreFac
-    facturas.fecha = Fecha
-    facturas.importe = Importe
-    facturas.idCaja = caja
-    facturas.save()
+        factura = get_object_or_404(Facturas, numFac=num_fac)
+        factura.nombreFac = nombre_fac
+        factura.fecha = fecha
+        factura.importe = importe
+        factura.idCaja = caja
+        factura.save()
 
-    messages.success(request, 'Factura Actualizada!')
-
-    return redirect('/facturas')
+        messages.success(request, 'Factura Actualizada!')
+        return redirect('/facturas')
+    else:
+        return redirect('/facturas')  # Redirige si no es un POST
 
 @login_required
 def eliminarFactura(request, numFac):
-    facturas = Facturas.objects.get(numFac=numFac)
-    facturas.delete()
-
+    factura = get_object_or_404(Facturas, numFac=numFac)
+    factura.delete()
     messages.success(request, 'Factura Eliminada!')
-
     return redirect('/facturas')
 
 @login_required
 def rutinas(request):
     rutinas = Rutinas.objects.all()
-    cliente = Cliente.objects.all()
+    clientes = Cliente.objects.all()
     entrenadores = Entrenador.objects.all()
     messages.success(request, 'Rutinas Listadas!')
-    return render(request, "gestionRutinas.html", {"rutinas": rutinas,"cliente": cliente,"entrenadores": entrenadores})
+    return render(request, "gestionRutinas.html", {"rutinas": rutinas, "clientes": clientes, "entrenadores": entrenadores})
 
 @login_required
 def registrarRutina(request):
-    IdRutina=request.POST['txtidRutina']
-    Ejercicio=request.POST['txtEjercicio']
-    Cantidad=request.POST['integerCantidad']
-    Fecha=request.POST['dateFecha']
-    IdCliente=request.POST['txtidCliente']
-    cliente = Cliente.objects.get(idCliente = IdCliente)
-    IdEntrenador=request.POST['txtidEntrenador']
-    entrenadores = Entrenador.objects.get(idEntrenador = IdEntrenador)
+    if request.method == 'POST':
+        ejercicio = request.POST['txtEjercicio']
+        cantidad = request.POST['integerCantidad']
+        fecha = request.POST['dateFecha']
+        id_cliente = request.POST['txtidCliente']
+        cliente = get_object_or_404(Cliente, pk=id_cliente)
+        id_entrenador = request.POST['txtidEntrenador']
+        entrenador = get_object_or_404(Entrenador, pk=id_entrenador)
 
-    rutinas = Rutinas.objects.create(idRutina = IdRutina, ejercicio = Ejercicio, cantidad = Cantidad, fecha=Fecha, idCliente = cliente, idEntrenador = entrenadores)
-    messages.success(request, 'Rutina Registrada!')
-    return redirect('/rutinas')
+        rutinas = Rutinas.objects.create(ejercicio=ejercicio, cantidad=cantidad, fecha=fecha, idCliente=cliente, idEntrenador=entrenador)
+        messages.success(request, 'Rutina Registrada!')
+        return redirect('/rutinas')
+    else:
+        return redirect('/rutinas')  # Redirige si no es un POST
 
 @login_required
 def edicionRutina(request, idRutina):
-    rutinas = Rutinas.objects.get(idRutina=idRutina)
-    cliente = Cliente.objects.all()
+    rutina = get_object_or_404(Rutinas, pk=idRutina)
+    clientes = Cliente.objects.all()
     entrenadores = Entrenador.objects.all()
-    return render(request, "edicionRutina.html", {"rutinas": rutinas,"cliente": cliente,"entrenadores": entrenadores})
+    return render(request, "edicionRutina.html", {"rutina": rutina, "clientes": clientes, "entrenadores": entrenadores})
 
 @login_required
 def editarRutina(request):
-    IdRutina=request.POST['txtidRutina']
-    Ejercicio=request.POST['txtEjercicio']
-    Cantidad=request.POST['integerCantidad']
-    Fecha=request.POST['dateFecha']
-    IdCliente=request.POST['txtidCliente']
-    cliente = Cliente.objects.get(idCliente = IdCliente)
-    IdEntrenador=request.POST['txtidEntrenador']
-    entrenadores = Entrenador.objects.get(idEntrenador = IdEntrenador)
+    if request.method == 'POST':
+        id_rutina = request.POST['txtidRutina']
+        ejercicio = request.POST['txtEjercicio']
+        cantidad = request.POST['integerCantidad']
+        fecha = request.POST['dateFecha']
+        id_cliente = request.POST['txtidCliente']
+        cliente = get_object_or_404(Cliente, pk=id_cliente)
+        id_entrenador = request.POST['txtidEntrenador']
+        entrenador = get_object_or_404(Entrenador, pk=id_entrenador)
 
-    rutinas = Rutinas.objects.get(idRutina=IdRutina)
-    rutinas.idRutina = IdRutina
-    rutinas.ejercicio = Ejercicio
-    rutinas.cantidad = Cantidad
-    rutinas.fecha = Fecha
-    rutinas.idCliente = cliente
-    rutinas.idEntrenador = entrenadores
-    rutinas.save()
+        rutina = get_object_or_404(Rutinas, pk=id_rutina)
+        rutina.ejercicio = ejercicio
+        rutina.cantidad = cantidad
+        rutina.fecha = fecha
+        rutina.idCliente = cliente
+        rutina.idEntrenador = entrenador
+        rutina.save()
 
-    messages.success(request, 'Rutina Actualizada!')
-
-    return redirect('/rutinas')
+        messages.success(request, 'Rutina Actualizada!')
+        return redirect('/rutinas')
+    else:
+        return redirect('/rutinas')  # Redirige si no es un POST
 
 @login_required
 def eliminarRutina(request, idRutina):
-    rutinas = Rutinas.objects.get(idRutina=idRutina)
-    rutinas.delete()
+    rutina = get_object_or_404(Rutinas, pk=idRutina)
+    rutina.delete()
 
     messages.success(request, 'Rutina Eliminada!')
-
     return redirect('/rutinas')
 
 @login_required
@@ -401,150 +414,157 @@ def recibos(request):
 
 @login_required
 def registrarRecibo(request):
-    numRecibo=request.POST['txtnumRecibo']
-    Sueldo=request.POST['floatSueldo']
-    Fecha=request.POST['dateFecha']
-    IdEntrenador=request.POST['txtidEntrenador']
-    entrenadores = Entrenador.objects.get(idEntrenador = IdEntrenador)
+    if request.method == 'POST':
+        num_recibo = request.POST['txtnumRecibo']
+        sueldo = request.POST['floatSueldo']
+        fecha = request.POST['dateFecha']
+        id_entrenador = request.POST['txtidEntrenador']
+        entrenador = get_object_or_404(Entrenador, pk=id_entrenador)
 
-    recibos = Recibos.objects.create(numRecibo = numRecibo, sueldo = Sueldo,  fecha=Fecha, idEntrenador = entrenadores)
-    messages.success(request, 'Recibo Registrado!')
-    return redirect('/recibos')
+        recibo = Recibos.objects.create(numRecibo=num_recibo, sueldo=sueldo, fecha=fecha, idEntrenador=entrenador)
+        messages.success(request, 'Recibo Registrado!')
+        return redirect('/recibos')
+    else:
+        return redirect('/recibos')  # Redirige si no es un POST
 
 @login_required
 def edicionRecibo(request, numRecibo):
-    recibos = Recibos.objects.get(numRecibo=numRecibo)
+    recibo = get_object_or_404(Recibos, numRecibo=numRecibo)
     entrenadores = Entrenador.objects.all()
-    return render(request, "edicionRecibo.html", {"recibos": recibos,"entrenadores": entrenadores})
+    return render(request, "edicionRecibo.html", {"recibo": recibo, "entrenadores": entrenadores})
 
 @login_required
 def editarRecibo(request):
-    numRecibo=request.POST['txtnumRecibo']
-    Sueldo=request.POST['floatSueldo']
-    Fecha=request.POST['dateFecha']
-    IdEntrenador=request.POST['txtidEntrenador']
-    entrenadores = Entrenador.objects.get(idEntrenador = IdEntrenador)
+    if request.method == 'POST':
+        num_recibo = request.POST['txtnumRecibo']
+        sueldo = request.POST['floatSueldo']
+        fecha = request.POST['dateFecha']
+        id_entrenador = request.POST['txtidEntrenador']
+        entrenador = get_object_or_404(Entrenador, pk=id_entrenador)
 
-    recibos = Recibos.objects.get(numRecibo=numRecibo)
-    recibos.numRecibo = numRecibo
-    recibos.sueldo = Sueldo
-    recibos.fecha = Fecha
-    recibos.idEntrenador = entrenadores
-    recibos.save()
+        recibo = get_object_or_404(Recibos, numRecibo=num_recibo)
+        recibo.sueldo = sueldo
+        recibo.fecha = fecha
+        recibo.idEntrenador = entrenador
+        recibo.save()
 
-    messages.success(request, 'Recibo Actualizado!')
-
-    return redirect('/recibos')
+        messages.success(request, 'Recibo Actualizado!')
+        return redirect('/recibos')
+    else:
+        return redirect('/recibos')  # Redirige si no es un POST
 
 @login_required
 def eliminarRecibo(request, numRecibo):
-    recibos = Recibos.objects.get(numRecibo=numRecibo)
-    recibos.delete()
+    recibo = get_object_or_404(Recibos, numRecibo=numRecibo)
+    recibo.delete()
 
     messages.success(request, 'Recibo Eliminado!')
-
     return redirect('/recibos')
 
 @login_required
 def registrarCliente(request):
-    idCliente=request.POST['txtidCliente']
-    Nombre=request.POST['txtNombre']
-    Apellido=request.POST['txtApellido']
+    if request.method == 'POST':
+        Nombre = request.POST['txtNombre']
+        Apellido = request.POST['txtApellido']
 
-    cliente = Cliente.objects.create(idCliente=idCliente, nombre=Nombre, apellido=Apellido)
-    messages.success(request, '¡Cliente Registrado!')
-    return redirect('/')
+        cliente = Cliente.objects.create(nombre=Nombre, apellido=Apellido)
+        messages.success(request, '¡Cliente Registrado!')
+        return redirect('/')  # Redirige a la página principal o a donde corresponda
+
+    return render(request, "registrarCliente.html")  # Asegúrate de tener una plantilla para el registro
 
 @login_required
 def edicionCliente(request, idCliente):
-    cliente = Cliente.objects.get(idCliente=idCliente)
+    cliente = get_object_or_404(Cliente, pk=idCliente)  # Usar pk para IDs automáticos
     return render(request, "edicionCliente.html", {"cliente": cliente})
 
 @login_required
 def editarCliente(request):
-    idCliente=request.POST['txtidCliente']
-    Nombre=request.POST['txtNombre']
-    Apellido=request.POST['txtApellido']
+    if request.method == 'POST':
+        idCliente = request.POST['txtidCliente']
+        Nombre = request.POST['txtNombre']
+        Apellido = request.POST['txtApellido']
 
-    cliente = Cliente.objects.get(idCliente=idCliente)
-    cliente.idCliente = idCliente
-    cliente.nombre = Nombre
-    cliente.apellido = Apellido
-    cliente.save()
+        cliente = get_object_or_404(Cliente, pk=idCliente)  # Usar pk para IDs automáticos
+        cliente.nombre = Nombre
+        cliente.apellido = Apellido
+        cliente.save()
 
-    messages.success(request, '¡Cliente Actualizado!')
+        messages.success(request, '¡Cliente Actualizado!')
+        return redirect('/')  # Redirige a la página principal o a donde corresponda
 
-    return redirect('/')
+    return render(request, "editarCliente.html")  # Asegúrate de tener una plantilla para la edición
 
 @login_required
 def eliminarCliente(request, idCliente):
-    cliente = Cliente.objects.get(idCliente=idCliente)
+    cliente = get_object_or_404(Cliente, pk=idCliente)  # Usar pk para IDs automáticos
     cliente.delete()
 
     messages.success(request, '¡Cliente Eliminado!')
-
-    return redirect('/')
+    return redirect('/')  # Redirige a la página principal o a donde corresponda
 
 @login_required
 def clienteXclase(request):
-    ClientexClase = clientesXclases.objects.all()
+    clienteXclase_list = clientesXclases.objects.all()
     clientes = Cliente.objects.all()
     clases = Clase.objects.all()
     messages.success(request, '¡ClientesXClases listados!')
-    return render(request, "gestionClienteXClase.html", {"clienteXclase": ClientexClase,"clases": clases, "cliente": clientes})
+    return render(request, "gestionClienteXClase.html", {"clienteXclase": clienteXclase_list, "clases": clases, "cliente": clientes})
 
 @login_required
 def registrarClienteXClase(request):
-    IdCxC=request.POST['txtidCxC']
-    Fecha=request.POST['dateFecha']
-    Estado=request.POST['txtEstado']
-    IdCliente=request.POST['txtidCliente']
-    cliente = Cliente.objects.get(idCliente = IdCliente)
-    IdClase=request.POST['txtidClase']
-    clases = Clase.objects.get(idClase = IdClase)
-    
+    if request.method == 'POST':
+        Fecha = request.POST['dateFecha']
+        Estado = request.POST['txtEstado']
+        IdCliente = request.POST['txtidCliente']
+        cliente = get_object_or_404(Cliente, pk=IdCliente)
+        IdClase = request.POST['txtidClase']
+        clases = get_object_or_404(Clase, pk=IdClase)
+        
+        clienteXclase = clientesXclases.objects.create(fecha=Fecha, estado=Estado, idCliente=cliente, idClase=clases)
+        messages.success(request, '¡ClienteXClase Registrado!')
+        return redirect('/clienteXclase')
 
-    clienteXclase = clientesXclases.objects.create( idCxC=IdCxC,fecha=Fecha, estado = Estado, idCliente = cliente,
-                                                 idClase = clases)
-    messages.success(request, 'clienteXclase Registrado!')
+    # Si no es POST, redirige o muestra un error.
     return redirect('/clienteXclase')
 
 @login_required
 def edicionClienteXClase(request, idCxC):
-    clienteXclase = clientesXclases.objects.get(idCxC=idCxC)
-    cliente = Cliente.objects.all()
+    clienteXclase = get_object_or_404(clientesXclases, pk=idCxC)
+    clientes = Cliente.objects.all()
     clases = Clase.objects.all()
-    return render(request, "edicionClienteXClase.html", {"clienteXclase": clienteXclase,"cliente": cliente,"clases": clases})
+    return render(request, "edicionClienteXClase.html", {"clienteXclase": clienteXclase, "cliente": clientes, "clases": clases})
 
 @login_required
 def editarClienteXClase(request):
-    IdCxC=request.POST['txtidCxC']
-    Fecha=request.POST['dateFecha']
-    Estado=request.POST['txtEstado']
-    IdCliente=request.POST['txtidCliente']
-    cliente = Cliente.objects.get(idCliente = IdCliente)
-    IdClase=request.POST['txtidClase']
-    clases = Clase.objects.get(idClase = IdClase)
+    if request.method == 'POST':
+        IdCxC = request.POST['txtidCxC']
+        Fecha = request.POST['dateFecha']
+        Estado = request.POST['txtEstado']
+        IdCliente = request.POST['txtidCliente']
+        cliente = get_object_or_404(Cliente, pk=IdCliente)
+        IdClase = request.POST['txtidClase']
+        clases = get_object_or_404(Clase, pk=IdClase)
 
-    clienteXclase = clientesXclases.objects.get(idCxC=IdCxC)
-    clienteXclase.idCxC = IdCxC
-    clienteXclase.estado = Estado
-    clienteXclase.fecha = Fecha
-    clienteXclase.idCliente = cliente
-    clienteXclase.idClase = clases
-    clienteXclase.save()
+        clienteXclase = get_object_or_404(clientesXclases, pk=IdCxC)
+        clienteXclase.fecha = Fecha
+        clienteXclase.estado = Estado
+        clienteXclase.idCliente = cliente
+        clienteXclase.idClase = clases
+        clienteXclase.save()
 
-    messages.success(request, 'cliente X clase Actualizado!')
+        messages.success(request, '¡ClienteXClase Actualizado!')
+        return redirect('/clienteXclase')
 
+    # Si no es POST, redirige o muestra un error.
     return redirect('/clienteXclase')
 
 @login_required
 def eliminarClienteXClase(request, idCxC):
-    clienteXclase = clientesXclases.objects.get(idCxC=idCxC)
+    clienteXclase = get_object_or_404(clientesXclases, pk=idCxC)
     clienteXclase.delete()
-    
-    messages.success(request, 'ClienteXClase Eliminada!')
 
+    messages.success(request, '¡ClienteXClase Eliminada!')
     return redirect('/clienteXclase')
 
 @login_required
@@ -557,59 +577,27 @@ def cobro(request):
 
 @login_required
 def registrarCobro(request):
-    print("entra")
-    # Obtener el idCobro del formulario
-    IdCobro = request.POST.get('txtidCobro', None)
-    
-    # Verificar si el campo 'txtidCobro' se obtuvo
-    if IdCobro is None:
-        messages.error(request, 'El campo idCobro es requerido.')
-        return redirect('/cobro')  # Redirige en caso de error
-    
-    # Obtener el idCliente del campo oculto
-    IdCli = request.POST.get('idOculto', None)
-    print(IdCli)
-    cliente = Cliente.objects.filter(idCliente=IdCli)[0]
-    
-    if IdCli is None:
-        messages.error(request, 'El campo idCliente es requerido.')
-        return redirect('/cobro')  # Redirige en caso de error
+    if request.method == 'POST':
+        IdCli = request.POST.get('idOculto', None)
+        cliente = get_object_or_404(Cliente, idCliente=IdCli)
+        
+        Fecha = request.POST.get('dateFecha', None)
+        
+        idC = clientesXclases.objects.filter(estado='activo', idCliente=IdCli).values_list("idClase", flat=True).first()
+        clase = get_object_or_404(Clase, idClase=idC)
 
-    # Obtener la fecha del formulario
-    Fecha = request.POST.get('dateFecha', None)
-    
-    if Fecha is None:
-        messages.error(request, 'El campo Fecha es requerido.')
-        return redirect('/cobro')  # Redirige en caso de error
+        costoCuota = Clase.objects.filter(idClase=idC).values_list("costoCuotas", flat=True).first()
 
-    # Buscar el idClase correspondiente al idCliente
-    idC = clientesXclases.objects.filter(estado='activo', idCliente=IdCli).values_list("idClase", flat=True).first()
-    print(idC)
-    clase=Clase.objects.filter(idClase=idC)[0]
-    
-    if idC is None:
-        messages.error(request, 'No se encontró una clase activa para el cliente.')
-        return redirect('/cobro')  # Redirige en caso de error
+        nuevo_cobro = Cobro.objects.create(
+            idCliente=cliente,
+            idClase=clase,
+            fecha=Fecha,
+            CostoCuota=costoCuota
+        )
 
-    # Obtener el costo de la cuota para la clase
-    costoCuota = Clase.objects.filter(idClase=idC).values_list("costoCuotas", flat=True).first()
-    print(costoCuota)
-    
-    if costoCuota is None:
-        messages.error(request, 'No se encontró el costo de la cuota para la clase.')
-        return redirect('/cobro')  # Redirige en caso de error
+        messages.success(request, 'Cobro registrado exitosamente!')
+        return redirect('/cobro')
 
-    # Crear el nuevo registro de cobro
-    nuevo_cobro = Cobro.objects.create(
-        idCobro=IdCobro,
-        idCliente=cliente,
-        idClase=clase,
-        fecha=Fecha,
-        CostoCuota=costoCuota
-    )
-
-    messages.success(request, 'Cobro registrado exitosamente!')
-    return redirect('/cobro')
 
 @login_required
 def informeCobro(request):

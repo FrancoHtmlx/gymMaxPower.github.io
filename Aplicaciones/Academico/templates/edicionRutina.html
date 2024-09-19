@@ -1,54 +1,46 @@
-
 {% extends "./base.html" %}
 
-{% block title %} gestion de rutinas {% endblock %}
+{% block title %} Edición de Rutinas {% endblock %}
 
-{% block body%}
-<div class="row"> 
-    <div class="col-md-4 offset-md-4">
-        <h2> Edicion de rutinas </h2>
+{% block body %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2>Edición de Rutinas</h2>
         <div class="card">
             <div class="card-body">
-                <form action="/rutinas/editarRutina/" method="POST">{% csrf_token %} 
+                <form action="/rutinas/editarRutina/" method="POST">{% csrf_token %}
+                    <input type="hidden" name="idRutina" value="{{ rutinas.idRutina }}">
                     <div class="form-group">
-                        <input type="text" id="txtidRutina" name="txtidRutina" value="{{rutinas.idRutina}}" class="form-control" placeholder="Ingrese idRutina" 
-                        minlength="6" maxlength="6" readonly required>
+                        <input type="text" id="txtEjercicio" name="txtEjercicio" value="{{ rutinas.ejercicio }}" class="form-control" placeholder="Ingrese Ejercicio" maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtEjercicio" name="txtEjercicio" value="{{rutinas.ejercicio}}" class="form-control" placeholder="Ingrese Ejercicio" 
-                         maxlength="50" required>
+                        <input type="number" id="txtCantidad" name="txtCantidad" value="{{ rutinas.cantidad }}" class="form-control" placeholder="Ingrese Cantidad" required>
                     </div>
                     <div class="form-group">
-                        <input type="integer" id="integerCantidad" name="integerCantidad" value="{{rutinas.cantidad}}" class="form-control" placeholder="Ingrese Cantidad" 
-                         maxlength="50" required>
+                        <input type="date" id="dateFecha" name="dateFecha" value="{{ rutinas.fecha }}" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" value="{{rutinas.fecha}}" class="form-control" placeholder="Ingrese Fecha" 
-                         maxlength="50" required>
-                    </div>
-                    <div class="form-group">
-                        <select name="txtidCliente"> 
-                            <option value="">seleccione un cliente</option>
-                            {% for c in cliente %} 
-                            <option value={{c.idCliente}}> {{c.nombre}}</option>   
+                        <select name="idCliente" class="form-control" required>
+                            <option value="">Seleccione un cliente</option>
+                            {% for cliente in clientes %}
+                            <option value="{{ cliente.idCliente }}" {% if cliente.idCliente == rutinas.idCliente.idCliente %}selected{% endif %}>{{ cliente.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
-                        <select name="txtidEntrenador"> 
-                            <option value="">seleccione un entrenador</option>
-                            {% for c in entrenadores %} 
-                            <option value={{c.idEntrenador}}> {{c.nombre}}</option>   
+                        <select name="idEntrenador" class="form-control" required>
+                            <option value="">Seleccione un entrenador</option>
+                            {% for entrenador in entrenadores %}
+                            <option value="{{ entrenador.idEntrenador }}" {% if entrenador.idEntrenador == rutinas.idEntrenador.idEntrenador %}selected{% endif %}>{{ entrenador.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                        <button type="submit" class="btn btn-success btn-block">Guardar</button>
                     </div>
                 </form>
-             </div>
+            </div>
         </div>
+    </div>
 </div>
-
 {% endblock %}

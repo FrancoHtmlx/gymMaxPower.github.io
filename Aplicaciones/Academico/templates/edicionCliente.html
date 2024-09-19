@@ -1,25 +1,25 @@
-
 {% extends "./base.html" %}
 
-{% block title %} gestion de cliente {% endblock %}
+{% block title %} Edición de Cliente {% endblock %}
 
-{% block body%}
+{% block body %}
 <div class="row"> 
     <div class="col-md-4 offset-md-4">
-        <h2> Edicion de clientes </h2>
+        <h2> Edición de Cliente </h2>
         <div class="card">
             <div class="card-body">
-                <form action="/editarCliente/" method="POST">{% csrf_token %} 
+                <form action="/editarCliente/" method="POST">{% csrf_token %}
+                    <!-- Se elimina el campo idCliente ya que es autogenerado y no editable -->
                     <div class="form-group">
-                        <input type="text" id="txtidCliente" name="txtidCliente" value="{{cliente.idCliente}}" class="form-control" placeholder="Ingrese idCliente" 
-                        minlength="6" maxlength="6" readonly required>
+                        <input type="text" id="txtidCliente" name="txtidCliente" value="{{ cliente.idCliente }}" class="form-control" placeholder="ID Cliente" 
+                        readonly required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" value="{{cliente.nombre}}" class="form-control" placeholder="Ingrese Nombre" 
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{ cliente.nombre }}" class="form-control" placeholder="Ingrese Nombre" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtApellido" name="txtApellido" value="{{cliente.apellido}}" class="form-control" placeholder="Ingrese Apellido" 
+                        <input type="text" id="txtApellido" name="txtApellido" value="{{ cliente.apellido }}" class="form-control" placeholder="Ingrese Apellido" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
@@ -28,8 +28,8 @@
                 </form>
              </div>
         </div>
+    </div>
 </div>
-
-
 {% endblock %}
+
 

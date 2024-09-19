@@ -1,11 +1,10 @@
-
 {% extends "./base.html" %}
 
-{% block title %} gestion de rutinas {% endblock %}
+{% block title %} Gestión de Rutinas {% endblock %}
 
-{% block body%}
+{% block body %}
 <div class="row">
-    <div class="col-sm-12 cold-md-6 col-lg-4 col-xl-4">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-dismissible alert-success">
@@ -14,78 +13,68 @@
         </div>
         {% endfor %}
         {% endif %}
-        <h2> Gestion de rutinas </h2>
+        <h2>Crear Rutina</h2>
         <div class="card">
             <div class="card-body">
-                <form action="/rutinas/registrarRutina/" method="POST">{% csrf_token %} 
+                <form action="/rutinas/registrarRutina/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="txtidRutina" name="txtidRutina" class="form-control" placeholder="idRutina" 
-                        minlength="6" maxlength="6" required>
+                        <input type="text" id="txtEjercicio" name="txtEjercicio" class="form-control" placeholder="Ingrese Ejercicio" maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtEjercicio" name="txtEjercicio" class="form-control" placeholder="Ingrese Ejercicio" 
-                         maxlength="50" required>
+                        <input type="number" id="txtCantidad" name="txtCantidad" class="form-control" placeholder="Ingrese Cantidad" required>
                     </div>
                     <div class="form-group">
-                        <input type="integer" id="integerCantidad" name="integerCantidad" class="form-control" placeholder="Ingrese cantidad" 
-                         maxlength="50" required>
+                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha" 
-                         maxlength="50" required>
-                    </div>
-                    <div class="form-group">
-                        <select name="txtidCliente"> 
-                            <option value="">seleccione un cliente</option>
-                            {% for c in cliente %} 
-                            <option value={{c.idCliente}}> {{c.nombre}}</option>   
+                        <select name="idCliente" class="form-control" required>
+                            <option value="">Seleccione un cliente</option>
+                            {% for cliente in clientes %}
+                            <option value="{{ cliente.idCliente }}">{{ cliente.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
-                        <select name="txtidEntrenador"> 
-                            <option value="">seleccione un entrenador</option>
-                            {% for c in entrenadores %} 
-                            <option value={{c.idEntrenador}}> {{c.nombre}}</option>   
+                        <select name="idEntrenador" class="form-control" required>
+                            <option value="">Seleccione un entrenador</option>
+                            {% for entrenador in entrenadores %}
+                            <option value="{{ entrenador.idEntrenador }}">{{ entrenador.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                        <button type="submit" class="btn btn-success btn-block">Guardar</button>
                     </div>
                 </form>
-             </div>
+            </div>
         </div>
     </div>
-    <div class="col-sm-12 cold-md-6 col-lg-8 col-xl-8">
-        <h1>Listado de rutinas</h1>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de Rutinas</h1>
         <div class="table-responsive py-2">
             <table class="table table-stripped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>idRutina</th>
                         <th>Ejercicio</th>
                         <th>Cantidad</th>
                         <th>Fecha</th>
-                        <th>idCliente</th>
-                        <th>idEntrenador</th>
+                        <th>Cliente</th>
+                        <th>Entrenador</th>
                         <th colspan="2">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for c in rutinas %} 
+                    {% for rutina in rutinas %}
                     <tr>
-                        <td>{{forloop.counter}}</td>
-                        <td>{{c.idRutina}}</td>
-                        <td>{{c.ejercicio}}</td>
-                        <td>{{c.cantidad}}</td>
-                        <td>{{c.fecha}}</td>
-                        <td>{{c.idCliente_id}}</td>
-                        <td>{{c.idEntrenador_id}}</td>
-                        <td><a href="edicionRutina/{{c.idRutina}}" class="btn btn-info">Editar</a></td>
-                        <td><a href="eliminarRutina/{{c.idRutina}}" class="btn btn-danger btnElminacion">Eliminar</a></td>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ rutina.ejercicio }}</td>
+                        <td>{{ rutina.cantidad }}</td>
+                        <td>{{ rutina.fecha }}</td>
+                        <td>{{ rutina.idCliente.nombre }}</td>
+                        <td>{{ rutina.idEntrenador.nombre }}</td>
+                        <td><a href="edicionRutina/{{ rutina.idRutina }}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminarRutina/{{ rutina.idRutina }}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -93,5 +82,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

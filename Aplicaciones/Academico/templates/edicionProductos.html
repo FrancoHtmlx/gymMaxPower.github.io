@@ -1,33 +1,32 @@
-
 {% extends "./base.html" %}
 
-{% block title %} gestion de productos {% endblock %}
+{% block title %} Edición de Producto {% endblock %}
 
-{% block body%}
-<div class="row"> 
+{% block body %}
+<div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2> Edicion de productos </h2>
+        <h2> Edición de Producto </h2>
         <div class="card">
             <div class="card-body">
-                <form action="/productos/editarProducto/" method="POST">{% csrf_token %} 
+                <form action="/productos/editarProducto/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="txtidProducto" name="txtidProducto" value="{{productos.idProducto}}" class="form-control" placeholder="Ingrese idProducto" 
-                        minlength="6" maxlength="6" readonly required>
+                        <input type="text" id="txtidProducto" name="txtidProducto" value="{{ producto.idProducto }}" class="form-control" placeholder="ID Producto" 
+                        readonly required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" value="{{productos.nombre}}" class="form-control" placeholder="Ingrese Nombre" 
-                         maxlength="50" required>
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{ producto.nombre }}" class="form-control" placeholder="Ingrese Nombre" 
+                         maxlength="20" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtStock" name="txtStock" value="{{productos.stock}}" class="form-control" placeholder="Ingrese Stock" 
-                         maxlength="50" required>
+                        <input type="text" id="txtStock" name="txtStock" value="{{ producto.stock }}" class="form-control" placeholder="Ingrese Stock" 
+                         maxlength="20" required>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                     </div>
                 </form>
-             </div>
+            </div>
         </div>
+    </div>
 </div>
-
 {% endblock %}

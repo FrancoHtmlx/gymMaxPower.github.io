@@ -1,36 +1,29 @@
-
 {% extends "./base.html" %}
 
-{% block title %} gestion de facturas {% endblock %}
+{% block title %} Gestión de Facturas {% endblock %}
 
-{% block body%}
+{% block body %}
 <div class="row"> 
     <div class="col-md-4 offset-md-4">
-        <h2> Edicion de facturas </h2>
+        <h2> Edición de Facturas </h2>
         <div class="card">
             <div class="card-body">
-                <form action="/facturas/editarFactura/" method="POST">{% csrf_token %} 
+                <form action="/facturas/editarFactura/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="txtnumFac" name="txtnumFac" value="{{facturas.numFac}}" class="form-control" placeholder="Ingrese numFac" 
-                        minlength="6" maxlength="6" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtnombreFac" name="txtnombreFac" value="{{facturas.nombreFac}}" class="form-control" placeholder="Ingrese nombreFac" 
+                        <input type="text" id="txtnombreFac" name="txtnombreFac" value="{{ facturas.nombreFac }}" class="form-control" placeholder="Ingrese nombreFac"
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" value="{{facturas.fecha}}" class="form-control" placeholder="Ingrese Fecha" 
-                         maxlength="50" required>
+                        <input type="date" id="dateFecha" name="dateFecha" value="{{ facturas.fecha }}" class="form-control" placeholder="Ingrese Fecha" required>
                     </div>
                     <div class="form-group">
-                        <input type="float" id="floatImporte" name="floatImporte" value="{{facturas.importe}}" class="form-control" placeholder="Ingrese Importe" 
-                         maxlength="50" required>
+                        <input type="number" step="0.01" id="floatImporte" name="floatImporte" value="{{ facturas.importe }}" class="form-control" placeholder="Ingrese Importe" required>
                     </div>
                     <div class="form-group">
-                        <select name="txtidCaja"> 
-                            <option value="">seleccione una caja</option>
-                            {% for c in cajas %} 
-                            <option value={{c.idCaja}}> {{c.tipo}}</option>   
+                        <select name="txtidCaja" class="form-control">
+                            <option value="">Seleccione una caja</option>
+                            {% for c in cajas %}
+                            <option value="{{ c.idCaja }}" {% if c.idCaja == facturas.idCaja.idCaja %}selected{% endif %}>{{ c.tipo }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -38,8 +31,8 @@
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                     </div>
                 </form>
-             </div>
+            </div>
         </div>
+    </div>
 </div>
-
 {% endblock %}

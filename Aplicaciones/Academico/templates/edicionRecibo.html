@@ -1,32 +1,28 @@
-
 {% extends "./base.html" %}
 
-{% block title %} gestion de recibos {% endblock %}
+{% block title %} Edición de recibos {% endblock %}
 
 {% block body%}
 <div class="row"> 
     <div class="col-md-4 offset-md-4">
-        <h2> Edicion de recibos </h2>
+        <h2> Edición de recibos </h2>
         <div class="card">
             <div class="card-body">
-                <form action="/recibos/editarRecibo/" method="POST">{% csrf_token %} 
+                <form action="/recibos/editarRecibo/" method="POST">{% csrf_token %}
+                    <!-- Campo txtnumRecibo eliminado -->
                     <div class="form-group">
-                        <input type="text" id="txtnumRecibo" name="txtnumRecibo" value="{{recibos.numRecibo}}" class="form-control" placeholder="Ingrese Recibo" 
-                        minlength="6" maxlength="6" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <input type="float" id="floatSueldo" name="floatSueldo" value="{{recibos.sueldo}}" class="form-control" placeholder="Ingrese Sueldo" 
+                        <input type="float" id="floatSueldo" name="floatSueldo" value="{{recibos.sueldo}}" class="form-control" placeholder="Ingrese Sueldo"
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" value="{{recibos.fecha}}" class="form-control" placeholder="Ingrese Fecha" 
+                        <input type="date" id="dateFecha" name="dateFecha" value="{{recibos.fecha}}" class="form-control" placeholder="Ingrese Fecha"
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <select name="txtidEntrenador"> 
-                            <option value="">seleccione un entrenador</option>
-                            {% for c in entrenadores %} 
-                            <option value={{c.idEntrenador}}> {{c.nombre}}</option>   
+                        <select name="txtidEntrenador">
+                            <option value="">Seleccione un entrenador</option>
+                            {% for c in entrenadores %}
+                            <option value="{{c.idEntrenador}}" {% if recibos.idEntrenador_id == c.idEntrenador %} selected {% endif %}>{{c.nombre}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -37,6 +33,7 @@
                 </form>
              </div>
         </div>
+    </div>
 </div>
 
 {% endblock %}

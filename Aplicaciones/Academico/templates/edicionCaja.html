@@ -1,37 +1,35 @@
-
 {% extends "./base.html" %}
 
-{% block title %} gestion de caja {% endblock %}
+{% block title %} Edición de Caja {% endblock %}
 
-{% block body%}
-<div class="row"> 
+{% block body %}
+<div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2> Edicion de cajas </h2>
+        <h2>Edición de Caja</h2>
         <div class="card">
             <div class="card-body">
-                <form action="/cajas/editarCaja/" method="POST">{% csrf_token %} 
+                <form action="/cajas/editarCaja/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="txtidCaja" name="txtidCaja" value="{{cajas.idCaja}}" class="form-control" placeholder="Ingrese idCaja" 
-                        minlength="6" maxlength="6" readonly required>
+                        <!-- El campo idCaja ha sido eliminado, ya que es autogenerado -->
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtTipo" name="txtTipo" value="{{cajas.tipo}}" class="form-control" placeholder="Ingrese Tipo" 
-                         maxlength="50" required>
+                        <input type="text" id="txtTipo" name="txtTipo" value="{{ caja.tipo }}" class="form-control" placeholder="Ingrese Tipo" 
+                         maxlength="20" required>
                     </div>
                     <div class="form-group">
-                        <input type="float" id="floatMonto" name="floatMonto" value="{{cajas.monto}}" class="form-control" placeholder="Ingrese Monto" 
-                         maxlength="50" required>
+                        <input type="number" id="floatMonto" name="floatMonto" value="{{ caja.monto }}" step="0.01" class="form-control" placeholder="Ingrese Monto" 
+                         required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha" 
-                         maxlength="50" required>
+                        <input type="date" id="dateFecha" name="dateFecha" value="{{ caja.fecha }}" class="form-control" placeholder="Ingrese Fecha" 
+                         required>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                     </div>
                 </form>
-             </div>
+            </div>
         </div>
+    </div>
 </div>
-
 {% endblock %}

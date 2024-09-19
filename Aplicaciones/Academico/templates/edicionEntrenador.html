@@ -1,33 +1,31 @@
-
 {% extends "./base.html" %}
 
-{% block title %} gestion de entrenador {% endblock %}
+{% block title %} Edición de Entrenador {% endblock %}
 
-{% block body%}
+{% block body %}
 <div class="row"> 
     <div class="col-md-4 offset-md-4">
-        <h2> Edicion de entrenadores </h2>
+        <h2> Edición de entrenadores </h2>
         <div class="card">
             <div class="card-body">
-                <form action="/entrenadores/editarEntrenador/" method="POST">{% csrf_token %} 
+                <form action="/entrenadores/editarEntrenador/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="txtidEntrenador" name="txtidEntrenador" value="{{entrenadores.idEntrenador}}" class="form-control" placeholder="Ingrese idEntrenador" 
-                        minlength="6" maxlength="6" readonly required>
+                        <!-- El campo idEntrenador ha sido eliminado, ya que es autogenerado -->
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" value="{{entrenadores.nombre}}" class="form-control" placeholder="Ingrese Nombre" 
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{ entrenador.nombre }}" class="form-control" placeholder="Ingrese Nombre" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtApellido" name="txtApellido" value="{{entrenadores.apellido}}" class="form-control" placeholder="Ingrese Apellido" 
+                        <input type="text" id="txtApellido" name="txtApellido" value="{{ entrenador.apellido }}" class="form-control" placeholder="Ingrese Apellido" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtTelefono" name="txtTelefono" value="{{entrenadores.telefono}}" class="form-control" placeholder="Ingrese Telefono" 
+                        <input type="text" id="txtTelefono" name="txtTelefono" value="{{ entrenador.telefono }}" class="form-control" placeholder="Ingrese Teléfono" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtDireccion" name="txtDireccion" value="{{entrenadores.direccion}}" class="form-control" placeholder="Ingrese Direccion" 
+                        <input type="text" id="txtDireccion" name="txtDireccion" value="{{ entrenador.direccion }}" class="form-control" placeholder="Ingrese Dirección" 
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
@@ -36,6 +34,7 @@
                 </form>
              </div>
         </div>
+    </div>
 </div>
 
 {% endblock %}

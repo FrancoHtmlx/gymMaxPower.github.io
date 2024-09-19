@@ -1,70 +1,56 @@
-
 {% extends "./base.html" %}
 
-{% block title %} gestion de Cobro {% endblock %}
+{% block title %} Gestión de Cobro {% endblock %}
 
-{% block body%}
+{% block body %}
 <div class="row">
-    <div class="col-sm-12 cold-md-6 col-lg-12 col-xl-4">
-       
-        <h4> Gestion de Cobro </h4>
+    <div class="col-sm-12 col-md-6 col-lg-12 col-xl-4">
+        <h4> Gestión de Cobro </h4>
         
-                <form action="/cobro/registrarCobro/" method="POST">{% csrf_token %}
-                        <input type="hidden" id="idOculto" name="idOculto" >
-                       
+        <form action="/cobro/registrarCobro/" method="POST">{% csrf_token %}
+            <input type="hidden" id="idOculto" name="idOculto">
 
-                        <input type="text" id="txtidCobro" name="txtidCobro" class="form-control" placeholder="Ingrese idCobro" 
-                        minlength="6" maxlength="6" required>
+            <select name="txtidCliente" id="txtidCliente" onchange="filtrarCobro()">
+                <option value="">Seleccione un cliente</option>
+                {% for c in cliente %}
+                    <option value="{{ c.idCliente }}">{{ c.apellido }}, {{ c.nombre }}</option>
+                {% endfor %}
+            </select>
 
-                        <select name="txtidCliente" id="txtidCliente" onchange="filtrarCobro()">
-                            <option value="">seleccione un cliente</option>
-                            {% for c in cliente%}
-                            <option value={{c.idCliente}}>{{c.apellido}}, {{c.nombre}}</option>
-                            {% endfor %}
-                        </select>
+            <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha" required> 
 
-                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha" 
-                         maxlength="50" required> 
-
-                         <button type="submit" class="btn btn-success btn-block text-white">Crear registro</button>
-                   
-                        
-                    
-                </form>
-        
+            <button type="submit" class="btn btn-success btn-block text-white">Crear registro</button>
+        </form>
     </div>
 </div>
+
 <div class="row">  
-    <div class="col-sm-12 cold-md-6 col-lg-12 col-xl-8">
-        <h4>Listado del cliente seleccionado: Cobro de sus clases</h4>
+    <div class="col-sm-12 col-md-6 col-lg-12 col-xl-8">
+        <h4>Listado de cobros</h4>
         <div class="table-responsive py-2">
             <table class="table table-stripped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>id Cobro</th>
                         <th>Cliente</th>
                         <th>Clase</th>
-                        <th>costo Cuota</th>
-                        <th>fecha</th>
+                        <th>Costo Cuota</th>
+                        <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
-                        {% for c in cobros%}
+                    {% for c in cobros %}
                         <tr>
-                        <td>{{forloop.counter}}</td>
-                            <td>{{c.idCobro}}</td>
-                            <td>{{c.idCliente}}</td>
-                            <td>{{c.idClase.nombre}}</td>
-                            <td>{{c.CostoCuota}}</td>
-                            <td>{{c.fecha}}</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ c.idCliente }}</td>
+                            <td>{{ c.idClase.nombre }}</td>
+                            <td>{{ c.CostoCuota }}</td>
+                            <td>{{ c.fecha }}</td>
                         </tr>
-                        {% endfor %}
+                    {% endfor %}
                 </tbody>
             </table>
-            
         </div>
     </div>
 </div>
-
 {% endblock %}

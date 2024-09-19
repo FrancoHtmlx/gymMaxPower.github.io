@@ -1,4 +1,3 @@
-
 {% extends "./base.html" %}
 
 {% block title %} gestion de recibos {% endblock %}
@@ -17,28 +16,25 @@
         <h2> Gestion de recibos </h2>
         <div class="card">
             <div class="card-body">
-                <form action="/recibos/registrarRecibo/" method="POST">{% csrf_token %} 
+                <form action="/recibos/registrarRecibo/" method="POST">{% csrf_token %}
+                    <!-- Campo de numRecibo eliminado -->
                     <div class="form-group">
-                        <input type="text" id="txtnumRecibo" name="txtnumRecibo" class="form-control" placeholder="Ingrese NumRecibo" 
-                        minlength="6" maxlength="6" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="float" id="floatSueldo" name="floatSueldo" class="form-control" placeholder="Ingrese Sueldo" 
+                        <input type="float" id="floatSueldo" name="floatSueldo" class="form-control" placeholder="Ingrese Sueldo"
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha" 
+                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha"
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <select name="txtidEntrenador"> 
+                        <select name="txtidEntrenador">
                             <option value="">seleccione un entrenador</option>
-                            {% for c in entrenadores %} 
-                            <option value={{c.idEntrenador}}> {{c.nombre}}</option>   
+                            {% for c in entrenadores %}
+                            <option value={{c.idEntrenador}}> {{c.nombre}}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                     </div>
@@ -53,7 +49,6 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>NumRecibo</th>
                         <th>Sueldo</th>
                         <th>Fecha</th>
                         <th>idEntrenador</th>
@@ -61,10 +56,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for c in recibos %} 
+                    {% for c in recibos %}
                     <tr>
                         <td>{{forloop.counter}}</td>
-                        <td>{{c.numRecibo}}</td>
                         <td>{{c.sueldo}}</td>
                         <td>{{c.fecha}}</td>
                         <td>{{c.idEntrenador_id}}</td>

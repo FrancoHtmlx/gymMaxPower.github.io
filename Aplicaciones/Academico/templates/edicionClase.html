@@ -1,45 +1,45 @@
 
 {% extends "./base.html" %}
 
-{% block title %} gestion de clase {% endblock %}
+{% block title %} Edición de Clase {% endblock %}
 
-{% block body%}
+{% block body %}
 <div class="row"> 
     <div class="col-md-4 offset-md-4">
-        <h2> Edicion de clases </h2>
+        <h2> Edición de Clase </h2>
         <div class="card">
             <div class="card-body">
-                <form action="/clases/editarClase/" method="POST">{% csrf_token %} 
+                <form action="/clases/editarClase/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="txtidClase" name="txtidClase" value="{{clases.idClase}}" class="form-control" placeholder="Ingrese idClase" 
-                        minlength="6" maxlength="6" readonly required>
+                        <!-- El campo idClase ha sido eliminado, ya que es autogenerado -->
+                        <input type="hidden" id="txtId" name="txtId" value="{{ clase.idClase }}">
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" value="{{entrenadores.nombre}}" class="form-control" placeholder="Ingrese Nombre" 
-                         maxlength="50" required>
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{ clase.nombre }}" class="form-control" placeholder="Ingrese Nombre" 
+                            maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtDia" name="txtDia" value="{{clases.dia}}" class="form-control" placeholder="Ingrese Dia" 
-                         maxlength="50" required>
+                        <input type="text" id="txtDia" name="txtDia" value="{{ clase.dia }}" class="form-control" placeholder="Ingrese Día" 
+                            maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtHorario" name="txtHorario" value="{{clases.horario}}" class="form-control" placeholder="Ingrese Horario" 
-                         maxlength="50" required>
+                        <input type="text" id="txtHorario" name="txtHorario" value="{{ clase.horario }}" class="form-control" placeholder="Ingrese Horario" 
+                            maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha" 
-                         maxlength="50" required>
+                        <input type="date" id="dateFecha" name="dateFecha" value="{{ clase.fecha }}" class="form-control" placeholder="Ingrese Fecha" 
+                            required>
                     </div>
                     <div class="form-group">
-                        <input type="float" id="floatCostoCuotas" name="floatCostoCuotas" class="form-control" placeholder="Ingrese Costocuotas" 
-                         maxlength="50" required>
+                        <input type="number" step="0.01" id="floatCostoCuotas" name="floatCostoCuotas" value="{{ clase.costoCuotas }}" class="form-control" placeholder="Ingrese Costo Cuotas" 
+                            required>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                     </div>
                 </form>
-             </div>
+            </div>
         </div>
+    </div>
 </div>
-
 {% endblock %}
