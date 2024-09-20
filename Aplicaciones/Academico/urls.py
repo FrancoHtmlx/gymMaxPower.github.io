@@ -13,7 +13,7 @@ urlpatterns = [
     path('eliminarCliente/<idCliente>', views.eliminarCliente),
     path('entrenadores/', views.entrenadores),
     path('entrenadores/registrarEntrenador/', views.registrarEntrenador),
-    path('entrenadores/edicionEntrenador/<idEntrenador>', views.edicionEntrenador),
+path('entrenadores/edicionEntrenador/<int:idEntrenador>/', views.edicionEntrenador, name='edicionEntrenador'),
     path('entrenadores/editarEntrenador/', views.editarEntrenador),
     path('entrenadores/eliminarEntrenador/<idEntrenador>', views.eliminarEntrenador),
     path('clases/', views.clases),
