@@ -465,8 +465,17 @@ def registrarCliente(request):
     if request.method == 'POST':
         Nombre = request.POST['txtNombre']
         Apellido = request.POST['txtApellido']
+        Telefono = request.POST['txtTelefono']
+        Email = request.POST['txtEmail']
+        Direccion = request.POST['txtDireccion']
 
-        cliente = Cliente.objects.create(nombre=Nombre, apellido=Apellido)
+        cliente = Cliente.objects.create(
+            nombre=Nombre,
+            apellido=Apellido,
+            telefono=Telefono,
+            email=Email,
+            direccion=Direccion
+        )
         messages.success(request, '¡Cliente Registrado!')
         return redirect('/')  # Redirige a la página principal o a donde corresponda
 
@@ -480,13 +489,19 @@ def edicionCliente(request, idCliente):
 @login_required
 def editarCliente(request):
     if request.method == 'POST':
-        idCliente = request.POST['txtidCliente']
+        idCliente = request.POST['txtidCliente']  # Necesitamos esto para encontrar el cliente
         Nombre = request.POST['txtNombre']
         Apellido = request.POST['txtApellido']
+        Telefono = request.POST['txtTelefono']
+        Email = request.POST['txtEmail']
+        Direccion = request.POST['txtDireccion']
 
         cliente = get_object_or_404(Cliente, pk=idCliente)  # Usar pk para IDs automáticos
         cliente.nombre = Nombre
         cliente.apellido = Apellido
+        cliente.telefono = Telefono
+        cliente.email = Email
+        cliente.direccion = Direccion
         cliente.save()
 
         messages.success(request, '¡Cliente Actualizado!')
@@ -501,6 +516,7 @@ def eliminarCliente(request, idCliente):
 
     messages.success(request, '¡Cliente Eliminado!')
     return redirect('/')  # Redirige a la página principal o a donde corresponda
+
 
 @login_required
 def clienteXclase(request):
