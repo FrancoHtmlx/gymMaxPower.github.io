@@ -5,13 +5,13 @@
 {% block body %}
 <div class="row"> 
     <div class="col-md-4 offset-md-4">
-        <h2> Edición de entrenadores </h2>
+        <h2> Edición de Entrenador </h2>
         <div class="card">
             <div class="card-body">
-                <form action="/entrenadores/editarEntrenador/" method="POST">{% csrf_token %}
-                    <div class="form-group">
-                        <!-- El campo idEntrenador ha sido eliminado, ya que es autogenerado -->
-                    </div>
+                <form action="/editarEntrenador/" method="POST">{% csrf_token %}
+                    <!-- Campo oculto para el idEntrenador -->
+                    <input type="hidden" name="idEntrenador" value="{{ entrenador.idEntrenador }}">
+                    
                     <div class="form-group">
                         <input type="text" id="txtNombre" name="txtNombre" value="{{ entrenador.nombre }}" class="form-control" placeholder="Ingrese Nombre" 
                          maxlength="50" required>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <input type="text" id="txtTelefono" name="txtTelefono" value="{{ entrenador.telefono }}" class="form-control" placeholder="Ingrese Teléfono" 
-                         maxlength="50" required>
+                         maxlength="20" required>
                     </div>
                     <div class="form-group">
                         <input type="text" id="txtDireccion" name="txtDireccion" value="{{ entrenador.direccion }}" class="form-control" placeholder="Ingrese Dirección" 
@@ -36,5 +36,5 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
+

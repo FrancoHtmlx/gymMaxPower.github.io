@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="row">
-    <div class="col-sm-12 cold-md-6 col-lg-4 col-xl-4">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-dismissible alert-success">
@@ -40,14 +40,13 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 cold-md-6 col-lg-8 col-xl-8">
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
         <h1>Listado de entrenadores</h1>
         <div class="table-responsive py-2">
-            <table class="table table-stripped">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>idEntrenador</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Teléfono</th>
@@ -59,7 +58,6 @@
                     {% for c in entrenadores %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ c.idEntrenador }}</td>
                         <td>{{ c.nombre }}</td>
                         <td>{{ c.apellido }}</td>
                         <td>{{ c.telefono }}</td>
@@ -74,6 +72,7 @@
     </div>
 </div>
 {% endblock %}
+
 
 
 
