@@ -1,39 +1,41 @@
 {% extends "./base.html" %}
 
-{% block title %} Edición de recibos {% endblock %}
+{% block title %} Edición de Recibo {% endblock %}
 
-{% block body%}
-<div class="row"> 
+{% block body %}
+<div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2> Edición de recibos </h2>
+        <h2> Edición de Recibo </h2>
         <div class="card">
             <div class="card-body">
                 <form action="/recibos/editarRecibo/" method="POST">{% csrf_token %}
-                    <!-- Campo txtnumRecibo eliminado -->
+                    <!-- Campo oculto para el numRecibo -->
+                    <input type="hidden" name="txtnumRecibo" value="{{ recibo.numRecibo }}">
+                    
                     <div class="form-group">
-                        <input type="float" id="floatSueldo" name="floatSueldo" value="{{recibos.sueldo}}" class="form-control" placeholder="Ingrese Sueldo"
-                         maxlength="50" required>
+                        <input type="float" name="floatSueldo" value="{{ recibo.sueldo }}" class="form-control" placeholder="Ingrese Sueldo" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" value="{{recibos.fecha}}" class="form-control" placeholder="Ingrese Fecha"
-                         maxlength="50" required>
+                        <input type="date" name="dateFecha" value="{{ recibo.fecha }}" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <select name="txtidEntrenador">
+                        <select name="txtidEntrenador" class="form-control" required>
                             <option value="">Seleccione un entrenador</option>
                             {% for c in entrenadores %}
-                            <option value="{{c.idEntrenador}}" {% if recibos.idEntrenador_id == c.idEntrenador %} selected {% endif %}>{{c.nombre}}</option>
+                            <option value="{{c.idEntrenador}}" {% if c.idEntrenador == recibo.idEntrenador.idEntrenador %}selected{% endif %}>
+                                {{c.nombre}}
+                            </option>
                             {% endfor %}
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                     </div>
                 </form>
-             </div>
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
+
