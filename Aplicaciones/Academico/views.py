@@ -98,24 +98,24 @@ def edicionEntrenador(request, id):
 @login_required
 def editarEntrenador(request):
     if request.method == 'POST':
-        id = request.POST['txtId']
-        Nombre = request.POST['txtNombre']
-        Apellido = request.POST['txtApellido']
-        Telefono = request.POST['txtTelefono']
-        Direccion = request.POST['txtDireccion']
+        id_entrenador = request.POST['txtidEntrenador']  # Asegúrate de que el id se pase de alguna manera (como un campo oculto)
+        nombre = request.POST['txtNombre']
+        apellido = request.POST['txtApellido']
+        telefono = request.POST['txtTelefono']
+        direccion = request.POST['txtDireccion']
 
-        entrenador = get_object_or_404(Entrenador, pk=id)
-        entrenador.nombre = Nombre
-        entrenador.apellido = Apellido
-        entrenador.telefono = Telefono
-        entrenador.direccion = Direccion
+        entrenador = get_object_or_404(Entrenador, pk=id_entrenador)
+        entrenador.nombre = nombre
+        entrenador.apellido = apellido
+        entrenador.telefono = telefono
+        entrenador.direccion = direccion
         entrenador.save()
 
-        messages.success(request, 'Entrenador Actualizado!')
-        return redirect('/entrenadores')
+        messages.success(request, '¡Entrenador Actualizado!')
+        return redirect('/entrenadores')  # Redirige a la lista de entrenadores o donde corresponda
 
-    # Si no es POST, se redirige o se maneja de otra forma
-    return redirect('/entrenadores')
+    return render(request, "edicionEntrenador.html")  # Asegúrate de tener la plantilla correspondiente
+
 
 @login_required
 def eliminarEntrenador(request, id):

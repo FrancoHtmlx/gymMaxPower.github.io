@@ -27,6 +27,18 @@
                          maxlength="50" required>
                     </div>
                     <div class="form-group">
+                        <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" placeholder="Ingrese Teléfono" 
+                         maxlength="20" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="txtEmail" name="txtEmail" class="form-control" placeholder="Ingrese Email" 
+                         maxlength="20" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtDireccion" name="txtDireccion" class="form-control" placeholder="Ingrese Dirección" 
+                         maxlength="50" required>
+                    </div>
+                    <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                     </div>
                 </form>
@@ -40,9 +52,12 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>idCliente</th>
+                        <!-- Se elimina el th de idCliente -->
                         <th>Nombre</th>
                         <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Dirección</th>
                         <th colspan="2">Opciones</th>
                     </tr>
                 </thead>
@@ -50,9 +65,12 @@
                     {% for c in cliente %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ c.idCliente }}</td>
+                        <!-- Se elimina el td de idCliente -->
                         <td>{{ c.nombre }}</td>
                         <td>{{ c.apellido }}</td>
+                        <td>{{ c.telefono }}</td>
+                        <td>{{ c.email }}</td>
+                        <td>{{ c.direccion }}</td>
                         <td><a href="edicionCliente/{{ c.idCliente }}" class="btn btn-info">Editar</a></td>
                         <td><a href="eliminarCliente/{{ c.idCliente }}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
                     </tr>
@@ -63,6 +81,7 @@
     </div>
 </div>
 {% endblock %}
+
 
 
 
