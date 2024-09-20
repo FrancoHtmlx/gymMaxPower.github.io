@@ -14,7 +14,7 @@
                         <input type="text" id="txtEjercicio" name="txtEjercicio" value="{{ rutinas.ejercicio }}" class="form-control" placeholder="Ingrese Ejercicio" maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="number" id="txtCantidad" name="txtCantidad" value="{{ rutinas.cantidad }}" class="form-control" placeholder="Ingrese Cantidad" required>
+                        <input type="number" id="integerCantidad" name="integerCantidad" value="{{ rutinas.integerCantidad }}" class="form-control" placeholder="Ingrese Cantidad" required>
                     </div>
                     <div class="form-group">
                         <input type="date" id="dateFecha" name="dateFecha" value="{{ rutinas.fecha }}" class="form-control" required>
@@ -44,3 +44,4 @@
     </div>
 </div>
 {% endblock %}
+
