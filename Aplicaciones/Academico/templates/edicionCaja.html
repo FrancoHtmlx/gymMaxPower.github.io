@@ -9,9 +9,7 @@
         <div class="card">
             <div class="card-body">
                 <form action="/cajas/editarCaja/" method="POST">{% csrf_token %}
-                    <div class="form-group">
-                        <!-- El campo idCaja ha sido eliminado, ya que es autogenerado -->
-                    </div>
+                    <input type="hidden" name="txtidCaja" value="{{ caja.idCaja }}">
                     <div class="form-group">
                         <input type="text" id="txtTipo" name="txtTipo" value="{{ caja.tipo }}" class="form-control" placeholder="Ingrese Tipo" 
                          maxlength="20" required>
@@ -33,3 +31,4 @@
     </div>
 </div>
 {% endblock %}
+

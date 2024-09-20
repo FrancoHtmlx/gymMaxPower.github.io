@@ -1,4 +1,3 @@
-
 {% extends "./base.html" %}
 
 {% block title %} Gestión de Caja {% endblock %}
@@ -10,44 +9,37 @@
         {% for message in messages %}
         <div class="alert alert-dismissible alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong class="text-dark">{{ message }}</strong>
+            <strong class="text-dark">{{ message }} </strong>
         </div>
         {% endfor %}
         {% endif %}
-        <h2>Gestión de Cajas</h2>
+        <h2>Crear Caja</h2>
         <div class="card">
             <div class="card-body">
-                <form action="/cajas/registrarCaja/" method="POST">{% csrf_token %}
+                <form action="/caja/registrarCaja/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <!-- El campo idCaja ha sido eliminado ya que es autogenerado -->
+                        <input type="text" id="txtTipo" name="txtTipo" class="form-control" placeholder="Ingrese Tipo" maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtTipo" name="txtTipo" class="form-control" placeholder="Ingrese Tipo" 
-                         maxlength="50" required>
+                        <input type="number" id="decimalMonto" name="decimalMonto" class="form-control" placeholder="Ingrese Monto" required>
                     </div>
                     <div class="form-group">
-                        <input type="number" step="0.01" id="floatMonto" name="floatMonto" class="form-control" placeholder="Ingrese Monto" 
-                         maxlength="50" required>
+                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <input type="date" id="dateFecha" name="dateFecha" class="form-control" placeholder="Ingrese Fecha" 
-                         required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                        <button type="submit" class="btn btn-success btn-block">Guardar</button>
                     </div>
                 </form>
-             </div>
+            </div>
         </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
         <h1>Listado de Cajas</h1>
         <div class="table-responsive py-2">
-            <table class="table table-striped">
+            <table class="table table-stripped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>idCaja</th>
                         <th>Tipo</th>
                         <th>Monto</th>
                         <th>Fecha</th>
@@ -55,15 +47,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for c in cajas %}
+                    {% for caja in cajas %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ c.idCaja }}</td>
-                        <td>{{ c.tipo }}</td>
-                        <td>{{ c.monto }}</td>
-                        <td>{{ c.fecha }}</td>
-                        <td><a href="edicionCaja/{{ c.idCaja }}" class="btn btn-info">Editar</a></td>
-                        <td><a href="eliminarCaja/{{ c.idCaja }}" class="btn btn-danger btnElminacion">Eliminar</a></td>
+                        <td>{{ caja.tipo }}</td>
+                        <td>{{ caja.monto }}</td>
+                        <td>{{ caja.fecha }}</td>
+                        <td><a href="edicionCaja/{{ caja.idCaja }}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminarCaja/{{ caja.idCaja }}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -72,3 +63,4 @@
     </div>
 </div>
 {% endblock %}
+
