@@ -91,9 +91,10 @@ def registrarEntrenador(request):
     return redirect('/entrenadores')
 
 @login_required
-def edicionEntrenador(request, id):
-    entrenador = get_object_or_404(Entrenador, pk=id)
+def edicionEntrenador(request, idEntrenador):
+    entrenador = get_object_or_404(Entrenador, pk=idEntrenador)  # Usar pk para IDs automáticos
     return render(request, "edicionEntrenador.html", {"entrenador": entrenador})
+
 
 @login_required
 def editarEntrenador(request):
