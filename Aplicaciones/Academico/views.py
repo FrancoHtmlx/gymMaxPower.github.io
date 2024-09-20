@@ -149,9 +149,10 @@ def registrarClase(request):
     return render(request, "registrarClase.html")
 
 @login_required
-def edicionClase(request, id):
-    clase = get_object_or_404(Clase, pk=id)
+def edicionClase(request, idClase):  # Asegúrate de que aquí se espera 'idClase'
+    clase = get_object_or_404(Clase, pk=idClase)  # Usar pk para IDs automáticos
     return render(request, "edicionClase.html", {"clase": clase})
+
 
 @login_required
 def editarClase(request):
