@@ -80,26 +80,23 @@ def registrarEntrenador(request):
         Telefono = request.POST['txtTelefono']
         Direccion = request.POST['txtDireccion']
 
-        # Crear nuevo entrenador, el campo id es auto-generado
         entrenador = Entrenador(nombre=Nombre, apellido=Apellido,
                                 telefono=Telefono, direccion=Direccion)
         entrenador.save()
         messages.success(request, 'Entrenador Registrado!')
         return redirect('/entrenadores')
 
-    # Si no es POST, se redirige o se maneja de otra forma
     return redirect('/entrenadores')
 
 @login_required
 def edicionEntrenador(request, idEntrenador):
-    entrenador = get_object_or_404(Entrenador, pk=idEntrenador)  # Usar pk para IDs automáticos
+    entrenador = get_object_or_404(Entrenador, pk=idEntrenador)
     return render(request, "edicionEntrenador.html", {"entrenador": entrenador})
-
 
 @login_required
 def editarEntrenador(request):
     if request.method == 'POST':
-        id_entrenador = request.POST['txtidEntrenador']  # Asegúrate de que el id se pase de alguna manera (como un campo oculto)
+        id_entrenador = request.POST['idEntrenador']  # Cambiado a 'idEntrenador'
         nombre = request.POST['txtNombre']
         apellido = request.POST['txtApellido']
         telefono = request.POST['txtTelefono']
@@ -119,12 +116,13 @@ def editarEntrenador(request):
 
 
 @login_required
-def eliminarEntrenador(request, id):
-    entrenador = get_object_or_404(Entrenador, pk=id)
+def eliminarEntrenador(request, idEntrenador):
+    entrenador = get_object_or_404(Entrenador, pk=idEntrenador)
     entrenador.delete()
 
     messages.success(request, 'Entrenador Eliminado!')
     return redirect('/entrenadores')
+
 
 #clases = Clase.objects.filter(estado='activo')
 
