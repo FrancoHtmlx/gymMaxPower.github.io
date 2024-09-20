@@ -156,25 +156,26 @@ def edicionClase(request, id):
 @login_required
 def editarClase(request):
     if request.method == 'POST':
-        id = request.POST['txtId']
-        Nombre = request.POST['txtNombre']
-        Dia = request.POST['txtDia']
-        Horario = request.POST['txtHorario']
-        Fecha = request.POST['dateFecha']
-        CostoCuotas = request.POST['floatCostoCuotas']
+        id_clase = request.POST['id_clase']  # Cambiado a 'id_clase'
+        nombre = request.POST['txtNombre']
+        dia = request.POST['txtDia']
+        horario = request.POST['txtHorario']
+        fecha = request.POST['dateFecha']
+        costo_cuotas = request.POST['floatCostoCuotas']
 
-        clase = get_object_or_404(Clase, pk=id)
-        clase.nombre = Nombre
-        clase.dia = Dia
-        clase.horario = Horario
-        clase.fecha = Fecha
-        clase.costoCuotas = CostoCuotas
+        clase = get_object_or_404(Clase, pk=id_clase)
+        clase.nombre = nombre
+        clase.dia = dia
+        clase.horario = horario
+        clase.fecha = fecha
+        clase.costoCuotas = costo_cuotas
         clase.save()
 
         messages.success(request, 'Clase Actualizada!')
         return redirect('/clases')
 
     return render(request, "editarClase.html")
+
 
 @login_required
 def eliminarClase(request, id):

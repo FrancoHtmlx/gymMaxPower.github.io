@@ -11,8 +11,8 @@
             <div class="card-body">
                 <form action="/clases/editarClase/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <!-- El campo idClase ha sido eliminado, ya que es autogenerado -->
-                        <input type="hidden" id="txtId" name="txtId" value="{{ clase.idClase }}">
+                        <!-- Campo oculto renombrado -->
+                        <input type="hidden" id="id_clase" name="id_clase" value="{{ clase.idClase }}">
                     </div>
                     <div class="form-group">
                         <input type="text" id="txtNombre" name="txtNombre" value="{{ clase.nombre }}" class="form-control" placeholder="Ingrese Nombre" 
