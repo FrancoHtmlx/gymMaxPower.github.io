@@ -9,7 +9,9 @@
         <div class="card">
             <div class="card-body">
                 <form action="/editarCliente/" method="POST">{% csrf_token %}
-                    <!-- El campo idCliente ha sido eliminado ya que es autogenerado y no editable -->
+                    <!-- Campo idCliente oculto -->
+                    <input type="hidden" name="txtidCliente" value="{{ cliente.idCliente }}">
+                    
                     <div class="form-group">
                         <input type="text" id="txtNombre" name="txtNombre" value="{{ cliente.nombre }}" class="form-control" placeholder="Ingrese Nombre" 
                          maxlength="50" required>
@@ -39,6 +41,7 @@
     </div>
 </div>
 {% endblock %}
+
 
 
 
