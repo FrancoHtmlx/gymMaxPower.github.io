@@ -27,7 +27,7 @@
                         <input type="date" id="dateFecha" name="dateFecha" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <select name="idCliente" class="form-control" required>
+                        <select name="txtidCliente" class="form-control" required>
                             <option value="">Seleccione un cliente</option>
                             {% for cliente in clientes %}
                             <option value="{{ cliente.idCliente }}">{{ cliente.nombre }}</option>
@@ -35,7 +35,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <select name="idEntrenador" class="form-control" required>
+                        <select name="txtidEntrenador" class="form-control" required>
                             <option value="">Seleccione un entrenador</option>
                             {% for entrenador in entrenadores %}
                             <option value="{{ entrenador.idEntrenador }}">{{ entrenador.nombre }}</option>
