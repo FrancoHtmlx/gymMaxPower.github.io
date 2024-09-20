@@ -8,7 +8,7 @@
         <h2> Edición de Entrenador </h2>
         <div class="card">
             <div class="card-body">
-                <form action="/editarEntrenador/" method="POST">{% csrf_token %}
+                <form action="/entrenadores/editarEntrenador/" method="POST">{% csrf_token %}
                     <!-- Campo oculto para el idEntrenador -->
                     <input type="hidden" name="idEntrenador" value="{{ entrenador.idEntrenador }}">
                     
