@@ -179,12 +179,12 @@ def editarClase(request):
 
 
 @login_required
-def eliminarClase(request, id):
-    clase = get_object_or_404(Clase, pk=id)
+def eliminarClase(request, idClase):
+    clase = get_object_or_404(Clase, pk=idClase)
     clase.delete()
-
     messages.success(request, 'Clase Eliminada!')
     return redirect('/clases')
+
 
 @login_required
 def cajas(request):
