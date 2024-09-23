@@ -293,18 +293,20 @@ def facturas(request):
 @login_required
 def registrarFactura(request):
     if request.method == 'POST':
-        num_fac = request.POST['txtnumFac']
+        # Eliminar num_fac ya que no debe ser proporcionado por el formulario
         nombre_fac = request.POST['txtnombreFac']
         fecha = request.POST['dateFecha']
         importe = request.POST['floatImporte']
         id_caja = request.POST['txtidCaja']
         caja = get_object_or_404(Caja, pk=id_caja)
 
-        facturas = Facturas.objects.create(numFac=num_fac, nombreFac=nombre_fac, fecha=fecha, importe=importe, idCaja=caja)
+        # Crear la factura sin numFac (que será autogenerado)
+        facturas = Facturas.objects.create(nombreFac=nombre_fac, fecha=fecha, importe=importe, idCaja=caja)
         messages.success(request, 'Factura Registrada!')
         return redirect('/facturas')
     else:
         return redirect('/facturas')  # Redirige si no es un POST
+
 
 @login_required
 def edicionFactura(request, numFac):
