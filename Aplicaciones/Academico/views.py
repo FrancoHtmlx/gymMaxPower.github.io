@@ -255,9 +255,10 @@ def registrarProducto(request):
         return render(request, "registrarProducto.html")  # Suponiendo que tienes una plantilla para el formulario
 
 @login_required
-def edicionProducto(request, id):
-    producto = get_object_or_404(Productos, pk=id)
+def edicionProducto(request, idProducto):
+    producto = get_object_or_404(Productos, pk=idProducto)
     return render(request, "edicionProductos.html", {"producto": producto})
+
 
 @login_required
 def editarProducto(request):
