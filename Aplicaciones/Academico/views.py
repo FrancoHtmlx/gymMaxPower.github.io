@@ -320,7 +320,7 @@ def edicionFactura(request, numFac):
 @login_required
 def editarFactura(request):
     if request.method == 'POST':
-        num_fac = request.POST['txtnumFac']
+        num_fac = request.POST['numFac']
         nombre_fac = request.POST['txtnombreFac']
         fecha = request.POST['dateFecha']
         importe = request.POST['floatImporte']
