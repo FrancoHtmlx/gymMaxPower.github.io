@@ -39,7 +39,6 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>ID Producto</th>
                         <th>Nombre</th>
                         <th>Stock</th>
                         <th colspan="2">Opciones</th>
@@ -49,7 +48,6 @@
                     {% for p in productos %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ p.idProducto }}</td>
                         <td>{{ p.nombre }}</td>
                         <td>{{ p.stock }}</td>
                         <td><a href="{% url 'edicionProducto' p.idProducto %}" class="btn btn-info">Editar</a></td>
@@ -62,3 +60,4 @@
     </div>
 </div>
 {% endblock %}
+
