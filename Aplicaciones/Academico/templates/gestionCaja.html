@@ -16,7 +16,8 @@
         <h2>Crear Caja</h2>
         <div class="card">
             <div class="card-body">
-                <form action="/caja/registrarCaja/" method="POST">{% csrf_token %}
+                <form action="{% url 'registrarCaja' %}" method="POST">{% csrf_token %}
+
                     <div class="form-group">
                         <input type="text" id="txtTipo" name="txtTipo" class="form-control" placeholder="Ingrese Tipo" maxlength="50" required>
                     </div>
