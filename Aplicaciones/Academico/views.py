@@ -278,11 +278,12 @@ def editarProducto(request):
         return redirect('/productos')  # Redirige si no es un POST
 
 @login_required
-def eliminarProducto(request, id):
-    producto = get_object_or_404(Productos, pk=id)
+def eliminarProducto(request, idProducto):
+    producto = get_object_or_404(Productos, pk=idProducto)
     producto.delete()
     messages.success(request, 'Producto Eliminado!')
     return redirect('/productos')
+
 
 
 @login_required
