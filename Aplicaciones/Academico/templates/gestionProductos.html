@@ -50,8 +50,8 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ p.nombre }}</td>
                         <td>{{ p.stock }}</td>
-                        <td><a href="{% url 'edicionProducto' producto.idProducto %}" class="btn btn-info">Editar</a></td>
-                        <td><a href="{% url 'eliminarProducto' producto.idProducto %}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                        <td><a href="{% url 'edicionProducto' p.idProducto %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url 'eliminarProducto' p.idProducto %}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
