@@ -262,7 +262,7 @@ def edicionProducto(request, id):
 @login_required
 def editarProducto(request):
     if request.method == 'POST':
-        id_producto = request.POST['txtidProducto']
+        id_producto = request.POST['txtidProducto']  # ID del producto que se edita
         nombre = request.POST['txtNombre']
         stock = request.POST['txtStock']
         
@@ -282,6 +282,7 @@ def eliminarProducto(request, id):
     producto.delete()
     messages.success(request, 'Producto Eliminado!')
     return redirect('/productos')
+
 
 @login_required
 def facturas(request):
