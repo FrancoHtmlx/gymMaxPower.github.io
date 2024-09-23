@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-body">
                 <form action="/productos/editarProducto/" method="POST">{% csrf_token %}
-                    <input type="hidden" name="txtidProducto" value="{{ producto.id }}">
+                    <input type="hidden" name="txtidProducto" value="{{ producto.idProducto }}">
                     <div class="form-group">
                         <input type="text" id="txtNombre" name="txtNombre" value="{{ producto.nombre }}" class="form-control" placeholder="Ingrese Nombre" 
                          maxlength="20" required>
@@ -27,3 +27,4 @@
     </div>
 </div>
 {% endblock %}
+
